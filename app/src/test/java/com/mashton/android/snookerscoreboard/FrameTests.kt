@@ -10,17 +10,17 @@ class FrameTests {
         val testFrame = Frame()
 
         for (x in 1..15) {
-            testFrame.playShot(Shot.RED)
-            testFrame.playShot(Shot.BLACK)
+            testFrame.playShot(LegalShot.RED)
+            testFrame.playShot(LegalShot.BLACK)
         }
 
-        testFrame.playShot(Shot.YELLOW)
-        testFrame.playShot(Shot.GREEN)
-        testFrame.playShot(Shot.BROWN)
-        testFrame.playShot(Shot.BLUE)
-        testFrame.playShot(Shot.PINK)
-        testFrame.playShot(Shot.BLACK)
-        testFrame.playShot(Shot.END_OF_FRAME)
+        testFrame.playShot(LegalShot.YELLOW)
+        testFrame.playShot(LegalShot.GREEN)
+        testFrame.playShot(LegalShot.BROWN)
+        testFrame.playShot(LegalShot.BLUE)
+        testFrame.playShot(LegalShot.PINK)
+        testFrame.playShot(LegalShot.BLACK)
+        testFrame.playShot(LegalShot.END_OF_FRAME)
 
 
         assertEquals(147, testFrame.currentPlayer.score)
@@ -31,19 +31,19 @@ class FrameTests {
         val testFrame = Frame()
 
         for (x in 1..15) {
-            testFrame.playShot(Shot.RED)
-            testFrame.playShot(Shot.BLACK)
+            testFrame.playShot(LegalShot.RED)
+            testFrame.playShot(LegalShot.BLACK)
         }
 
         assertEquals(120, testFrame.currentPlayer.breakScore)
 
-        testFrame.playShot(Shot.YELLOW)
-        testFrame.playShot(Shot.GREEN)
-        testFrame.playShot(Shot.BROWN)
-        testFrame.playShot(Shot.BLUE)
-        testFrame.playShot(Shot.PINK)
-        testFrame.playShot(Shot.BLACK)
-        testFrame.playShot(Shot.END_OF_FRAME)
+        testFrame.playShot(LegalShot.YELLOW)
+        testFrame.playShot(LegalShot.GREEN)
+        testFrame.playShot(LegalShot.BROWN)
+        testFrame.playShot(LegalShot.BLUE)
+        testFrame.playShot(LegalShot.PINK)
+        testFrame.playShot(LegalShot.BLACK)
+        testFrame.playShot(LegalShot.END_OF_FRAME)
     }
 
     @Test
@@ -51,18 +51,18 @@ class FrameTests {
         val testFrame = Frame()
 
         for (x in 1..15) {
-            testFrame.playShot(Shot.RED)
-            testFrame.playShot(Shot.BLACK)
+            testFrame.playShot(LegalShot.RED)
+            testFrame.playShot(LegalShot.BLACK)
         }
 
         assertEquals(0, testFrame.currentPlayer.score)
 
-        testFrame.playShot(Shot.YELLOW)
-        testFrame.playShot(Shot.GREEN)
-        testFrame.playShot(Shot.BROWN)
-        testFrame.playShot(Shot.BLUE)
-        testFrame.playShot(Shot.PINK)
-        testFrame.playShot(Shot.BLACK)
-        testFrame.playShot(Shot.END_OF_FRAME)
+        testFrame.playShot(LegalShot.YELLOW)
+        testFrame.playShot(LegalShot.GREEN)
+        testFrame.playShot(LegalShot.BROWN)
+        testFrame.playShot(LegalShot.BLUE)
+        testFrame.playShot(LegalShot.PINK)
+        testFrame.playShot(LegalShot.BLACK)
+        testFrame.playShot(LegalShot.END_OF_FRAME)
     }
 }

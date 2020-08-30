@@ -1,9 +1,5 @@
 package com.mashton.android.snookerscoreboard
 
-import android.os.Build
-import androidx.annotation.RequiresApi
-import java.util.stream.Collectors
-
 class Frame {
 
     val playerOne = Player()
@@ -13,15 +9,22 @@ class Frame {
     fun playShot(shot: Shot) {
         currentPlayer.playShot(shot)
         when (shot) {
-            Shot.DOT -> {
+            LegalShot.DOT -> {
                 currentPlayer.endBreak()
-                currentPlayer = nextPlayer() }
+                currentPlayer = otherPlayer() }
+            LegalShot.END_OF_FRAME -> currentPlayer.endBreak()
 
-            Shot.END_OF_FRAME -> currentPlayer.endBreak()
+            IllegalShot.FOUL_FOUR,
+            IllegalShot.FOUL_FIVE,
+            IllegalShot.FOUL_SIX,
+            IllegalShot.FOUL_SEVEN -> {
+                otherPlayer().receivePenaltyPoints(shot as IllegalShot)
+                currentPlayer.endBreak()
+                currentPlayer = otherPlayer() }
+            }
         }
-    }
 
-    private fun nextPlayer(): Player = when (currentPlayer) {
+    private fun otherPlayer(): Player = when (currentPlayer) {
         playerOne -> playerTwo
         playerTwo -> playerOne
         else -> Player()
