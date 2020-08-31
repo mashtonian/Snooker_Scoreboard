@@ -1,10 +1,10 @@
 package com.mashton.android.snookerscoreboard
+import junit.framework.Assert.assertEquals
 import org.junit.Test
 
-import org.junit.Assert.*
-
 class ShotListTests {
-    @Test fun maximumGives147() {
+    @Test
+    fun maximumGives147() {
         val testShotList = ShotList()
 
         for (x in 1..15) {
