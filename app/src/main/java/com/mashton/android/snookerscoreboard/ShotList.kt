@@ -8,5 +8,4 @@ class ShotList {
 
     fun add(shot: Shot) {shots.add(shot)}
     fun add(newShots: ArrayList<Shot>) {shots.addAll(newShots)}
-
 }

@@ -9,13 +9,12 @@ class Frame {
     fun playShot(shot: Shot) {
         currentPlayer.playShot(shot)
         controlTurnFlow(shot)
-        }
+    }
 
     private fun controlTurnFlow(shot: Shot) {
         when (shot) {
             LegalShot.DOT, LegalShot.END_OF_TURN -> {
-                currentPlayer.endBreak()
-                currentPlayer = otherPlayer()
+                switchPlayer()
             }
 
             LegalShot.END_OF_FRAME -> currentPlayer.endBreak()
@@ -25,10 +24,14 @@ class Frame {
             IllegalShot.FOUL_SIX,
             IllegalShot.FOUL_SEVEN -> {
                 otherPlayer().receivePenaltyPoints(shot as IllegalShot)
-                currentPlayer.endBreak()
-                currentPlayer = otherPlayer()
+                switchPlayer()
             }
         }
+    }
+
+    private fun switchPlayer() {
+        currentPlayer.endBreak()
+        currentPlayer = otherPlayer()
     }
 
     private fun otherPlayer(): Player = when (currentPlayer) {

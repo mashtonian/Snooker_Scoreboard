@@ -9,13 +9,8 @@ class Player {
     val breakScore: Int
         get() = breakShots.score
 
-    fun endBreak() {
-        shots.add(breakShots.shots)
-    }
-
-    fun playShot(shot: Shot) {
-        breakShots.add(shot)
-    }
+    fun endBreak() { shots.add(breakShots.shots) }
+    fun playShot(shot: Shot) { breakShots.add(shot) }
 
     fun receivePenaltyPoints(shot: IllegalShot){
         shots.add(when (shot){
