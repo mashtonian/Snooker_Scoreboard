@@ -6,14 +6,7 @@ class ShotList {
     val score: Int
         get() = shots.sumBy{it.value}
 
-    fun add(shot: Shot)
-    {
-        shots.add(shot)
-    }
-
-    fun add(newShots: ArrayList<Shot>)
-    {
-        shots.addAll(newShots)
-    }
+    fun add(shot: Shot) {shots.add(shot)}
+    fun add(newShots: ArrayList<Shot>) {shots.addAll(newShots)}
 
 }
