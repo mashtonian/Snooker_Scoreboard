@@ -5,11 +5,16 @@ import androidx.annotation.RequiresApi
 import java.util.stream.Collectors
 
 class Player {
-    var shots = ArrayList<Shot>()
-    var breakShots = ArrayList<Shot>()
+    var shots = ShotList()
+    var score: Int = 0
+        get() = shots.score
+
+    var breakShots = ShotList()
+    var breakScore: Int = 0
+        get() = breakShots.score
 
     fun endBreak() {
-        shots.addAll(breakShots)
+        shots.add(breakShots.shots)
     }
 
     fun playShot(shot: Shot) {
@@ -25,12 +30,4 @@ class Player {
             else -> shot
         })
     }
-
-    val breakScore: Int
-        @RequiresApi(Build.VERSION_CODES.N)
-        get() = breakShots.stream().collect(Collectors.summingInt(Shot::value))
-
-    val score: Int
-        @RequiresApi(Build.VERSION_CODES.N)
-        get() = shots.stream().collect(Collectors.summingInt(Shot::value))
 }

@@ -5,6 +5,7 @@ import org.junit.Test
 import org.junit.Assert.*
 
 class FrameTests {
+
     @Test
     fun maximumGives147() {
         val testFrame = Frame()
@@ -64,5 +65,48 @@ class FrameTests {
         testFrame.playShot(LegalShot.PINK)
         testFrame.playShot(LegalShot.BLACK)
         testFrame.playShot(LegalShot.END_OF_FRAME)
+    }
+
+    @Test
+    fun smallBreakFollowedByFoulGivesBreakScore() {
+        val testFrame = Frame()
+
+        testFrame.currentPlayer = testFrame.playerOne
+
+        testFrame.playShot(LegalShot.RED)
+        testFrame.playShot(LegalShot.BROWN)
+        testFrame.playShot(IllegalShot.FOUL_FOUR)
+        assertEquals(5, testFrame.playerOne.score)
+    }
+
+    @Test
+    fun smallBreakFollowedByFoulGivesFoulScore() {
+        val testFrame = Frame()
+
+        testFrame.currentPlayer = testFrame.playerOne
+
+        testFrame.playShot(LegalShot.RED)
+        testFrame.playShot(LegalShot.BROWN)
+        testFrame.playShot(IllegalShot.FOUL_FOUR)
+        assertEquals(4, testFrame.playerTwo.score)
+    }
+
+    @Test
+    fun smallBreakFollowedByFoulGivesCorrectTurn() {
+        val testFrame = Frame()
+
+        testFrame.currentPlayer = testFrame.playerOne
+
+        playShots(testFrame, arrayOf(
+            LegalShot.RED,
+            LegalShot.BROWN,
+            IllegalShot.FOUL_FOUR
+        ))
+
+        assertEquals(testFrame.playerTwo, testFrame.currentPlayer)
+    }
+
+    private fun playShots(frame : Frame, shots : Array<Shot>){
+        for (shot in shots) frame.playShot(shot)
     }
 }
