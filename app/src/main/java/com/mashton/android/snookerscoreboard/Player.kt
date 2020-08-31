@@ -1,16 +1,12 @@
 package com.mashton.android.snookerscoreboard
 
-import android.os.Build
-import androidx.annotation.RequiresApi
-import java.util.stream.Collectors
-
 class Player {
-    var shots = ShotList()
-    var score: Int = 0
+    private var shots = ShotList()
+    val score: Int
         get() = shots.score
 
-    var breakShots = ShotList()
-    var breakScore: Int = 0
+    private var breakShots = ShotList()
+    val breakScore: Int
         get() = breakShots.score
 
     fun endBreak() {
