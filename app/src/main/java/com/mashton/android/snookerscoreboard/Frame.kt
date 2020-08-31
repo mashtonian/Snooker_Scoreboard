@@ -13,10 +13,11 @@ class Frame {
 
     private fun controlTurnFlow(shot: Shot) {
         when (shot) {
-            LegalShot.DOT -> {
+            LegalShot.DOT, LegalShot.END_OF_TURN -> {
                 currentPlayer.endBreak()
                 currentPlayer = otherPlayer()
             }
+
             LegalShot.END_OF_FRAME -> currentPlayer.endBreak()
 
             IllegalShot.FOUL_FOUR,

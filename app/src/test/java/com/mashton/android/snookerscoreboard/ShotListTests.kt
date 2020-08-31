@@ -8,20 +8,24 @@ class ShotListTests {
         val testShotList = ShotList()
 
         for (x in 1..15) {
-            testShotList.add(LegalShot.RED)
-            testShotList.add(LegalShot.BLACK)
+            testShotList.playShots(arrayOf (
+                LegalShot.RED,
+                LegalShot.BLACK ))
         }
 
-        testShotList.add(LegalShot.YELLOW)
-        testShotList.add(LegalShot.GREEN)
-        testShotList.add(LegalShot.BROWN)
-        testShotList.add(LegalShot.BLUE)
-        testShotList.add(LegalShot.PINK)
-        testShotList.add(LegalShot.BLACK)
-        testShotList.add(LegalShot.END_OF_FRAME)
-
+        testShotList.playShots(arrayOf (
+            LegalShot.YELLOW,
+            LegalShot.GREEN,
+            LegalShot.BROWN,
+            LegalShot.BLUE,
+            LegalShot.PINK,
+            LegalShot.BLACK ))
 
         assertEquals(147, testShotList.score)
+    }
+
+    private fun ShotList.playShots(shots : Array<Shot>){
+        for (shot in shots) this.add(shot)
     }
 
 }
