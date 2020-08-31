@@ -1,34 +1,9 @@
 package com.mashton.android.snookerscoreboard
-
 import org.junit.Test
-
 import org.junit.Assert.*
 
 class FrameTests {
-
-    @Test
-    fun maximumGives147() {
-        val testFrame = Frame()
-
-        for (x in 1..15) {
-            testFrame.playShot(LegalShot.RED)
-            testFrame.playShot(LegalShot.BLACK)
-        }
-
-        testFrame.playShot(LegalShot.YELLOW)
-        testFrame.playShot(LegalShot.GREEN)
-        testFrame.playShot(LegalShot.BROWN)
-        testFrame.playShot(LegalShot.BLUE)
-        testFrame.playShot(LegalShot.PINK)
-        testFrame.playShot(LegalShot.BLACK)
-        testFrame.playShot(LegalShot.END_OF_FRAME)
-
-
-        assertEquals(147, testFrame.currentPlayer.score)
-    }
-
-    @Test
-    fun maximumGives120BreakAfterReds() {
+    @Test fun maximumGives120BreakAfterReds() {
         val testFrame = Frame()
 
         for (x in 1..15) {
@@ -46,9 +21,7 @@ class FrameTests {
         testFrame.playShot(LegalShot.BLACK)
         testFrame.playShot(LegalShot.END_OF_FRAME)
     }
-
-    @Test
-    fun maximumGives0ScoreAfterReds() {
+    @Test fun maximumGives0ScoreAfterReds() {
         val testFrame = Frame()
 
         for (x in 1..15) {
@@ -66,9 +39,7 @@ class FrameTests {
         testFrame.playShot(LegalShot.BLACK)
         testFrame.playShot(LegalShot.END_OF_FRAME)
     }
-
-    @Test
-    fun smallBreakFollowedByFoulGivesBreakScore() {
+    @Test fun smallBreakFollowedByFoulGivesBreakScore() {
         val testFrame = Frame()
 
         testFrame.currentPlayer = testFrame.playerOne
@@ -78,9 +49,7 @@ class FrameTests {
         testFrame.playShot(IllegalShot.FOUL_FOUR)
         assertEquals(5, testFrame.playerOne.score)
     }
-
-    @Test
-    fun smallBreakFollowedByFoulGivesFoulScore() {
+    @Test fun smallBreakFollowedByFoulGivesFoulScore() {
         val testFrame = Frame()
 
         testFrame.currentPlayer = testFrame.playerOne
@@ -90,9 +59,7 @@ class FrameTests {
         testFrame.playShot(IllegalShot.FOUL_FOUR)
         assertEquals(4, testFrame.playerTwo.score)
     }
-
-    @Test
-    fun smallBreakFollowedByFoulGivesCorrectTurn() {
+    @Test fun smallBreakFollowedByFoulGivesCorrectTurn() {
         val testFrame = Frame()
 
         testFrame.currentPlayer = testFrame.playerOne
