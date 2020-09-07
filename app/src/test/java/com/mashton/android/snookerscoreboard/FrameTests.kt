@@ -3,6 +3,7 @@ import org.junit.Test
 import org.junit.Assert.*
 
 class FrameTests {
+
     @Test fun maximumGives120BreakAfterReds() {
         val testFrame = Frame()
 
@@ -60,6 +61,21 @@ class FrameTests {
             IllegalShot.FOUL_FOUR ))
 
         assertEquals(testFrame.playerTwo, testFrame.currentPlayer)
+    }
+    @Test fun breakContainingOpponentPenaltyContinuesCorrectly() {
+        val testFrame = Frame()
+
+        testFrame.currentPlayer = testFrame.playerOne
+
+        testFrame.playShots(arrayOf (
+            LegalShot.RED,
+            LegalShot.BROWN,
+            IllegalShot.PENALTY_SIX,
+            LegalShot.RED,
+            LegalShot.BLACK,
+            LegalShot.DOT))
+
+        assertEquals(19, testFrame.playerOne.score)
     }
 
     private fun Frame.playShots(shots : Array<Shot>){

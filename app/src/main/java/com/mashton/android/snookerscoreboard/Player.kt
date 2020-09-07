@@ -2,6 +2,7 @@ package com.mashton.android.snookerscoreboard
 
 class Player {
     private var shots = ShotList()
+
     val score: Int
         get() = shots.score
 

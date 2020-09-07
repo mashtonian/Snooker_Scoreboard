@@ -6,7 +6,7 @@ interface Shot{
 }
 
 enum class LegalShot(override val value: Int, override val shortName: String) : Shot {
-    DOT(0, "D"), RED(1, "1"),
+    DOT(0, "."), RED(1, "1"),
     YELLOW(2, "2"), GREEN(3, "3"),
     BROWN(4, "4"),BLUE(5, "5"),
     PINK(6, "6"), BLACK(7, "7"),

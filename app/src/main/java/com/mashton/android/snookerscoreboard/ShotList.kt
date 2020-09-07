@@ -8,4 +8,9 @@ class ShotList {
 
     fun add(shot: Shot) {shots.add(shot)}
     fun add(newShots: ArrayList<Shot>) {shots.addAll(newShots)}
+
+    override fun toString(): String {
+        return shots.joinToString (separator = "") { it.shortName }
+    }
+
 }
