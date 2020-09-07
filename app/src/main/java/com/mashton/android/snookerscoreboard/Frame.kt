@@ -4,10 +4,12 @@ class Frame {
 
     val playerOne = Player()
     val playerTwo = Player()
-    var currentPlayer = playerTwo
+    var currentPlayer = playerOne
+    var shotTicker: String = ""
 
     fun playShot(shot: Shot) {
         currentPlayer.playShot(shot)
+        shotTicker += shot.shortName
         controlTurnFlow(shot)
     }
 
@@ -39,4 +41,6 @@ class Frame {
         playerTwo -> playerOne
         else -> Player()
     }
+
+
 }

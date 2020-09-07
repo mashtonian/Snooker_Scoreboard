@@ -1,16 +1,18 @@
 package com.mashton.android.snookerscoreboard
 
 class Player {
-    private var shots = ShotList()
+    var shots = ShotList()
 
     val score: Int
         get() = shots.score
 
-    private var breakShots = ShotList()
+    var breakShots = ShotList()
     val breakScore: Int
         get() = breakShots.score
 
-    fun endBreak() { shots.add(breakShots.shots) }
+    fun endBreak() {    shots.add(breakShots.shots)
+                        breakShots.shots.clear()
+    }
     fun playShot(shot: Shot) { breakShots.add(shot) }
 
     fun receivePenaltyPoints(shot: IllegalShot){
