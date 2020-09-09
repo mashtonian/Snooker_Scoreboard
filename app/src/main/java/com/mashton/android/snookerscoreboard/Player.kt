@@ -1,22 +1,21 @@
 package com.mashton.android.snookerscoreboard
 
 class Player {
-    var shots = ShotList()
+    var breaks: MutableList<ShotList> = mutableListOf(ShotList())
 
     val score: Int
-        get() = shots.score
+        get() = breaks.sumOf { it.score }
 
-    var breakShots = ShotList()
     val breakScore: Int
-        get() = breakShots.score
+        get() = currentBreak.score
 
-    fun endBreak() {    shots.add(breakShots.shots)
-                        breakShots.shots.clear()
+    fun endBreak() {    breaks.add(ShotList())
     }
-    fun playShot(shot: Shot) { breakShots.add(shot) }
+
+    fun playShot(shot: Shot) { currentBreak.add(shot) }
 
     fun receivePenaltyPoints(shot: IllegalShot){
-        shots.add(when (shot){
+        breaks.last().add(when (shot){
             IllegalShot.FOUL_FOUR -> IllegalShot.PENALTY_FOUR
             IllegalShot.FOUL_FIVE -> IllegalShot.PENALTY_FIVE
             IllegalShot.FOUL_SIX -> IllegalShot.PENALTY_SIX
@@ -24,4 +23,7 @@ class Player {
             else -> shot
         })
     }
+
+    val currentBreak: ShotList
+        get() = breaks.last()
 }

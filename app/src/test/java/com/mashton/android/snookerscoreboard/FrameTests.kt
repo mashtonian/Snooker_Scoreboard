@@ -5,7 +5,7 @@ import org.junit.Assert.*
 class FrameTests {
 
     @Test fun maximumGives120BreakAfterReds() {
-        val testFrame = Frame()
+        val testFrame = startAFrame()
 
         for (x in 1..15) {
             testFrame.playShots(arrayOf (
@@ -16,7 +16,7 @@ class FrameTests {
         assertEquals(120, testFrame.currentPlayer.breakScore)
     }
     @Test fun maximumGives0ScoreAfterReds() {
-        val testFrame = Frame()
+        val testFrame = startAFrame()
 
         for (x in 1..15) {
             testFrame.playShots(arrayOf (
@@ -24,12 +24,10 @@ class FrameTests {
                 LegalShot.BLACK ))
         }
 
-        assertEquals(0, testFrame.currentPlayer.score)
+        assertEquals(120, testFrame.currentPlayer.score)
     }
     @Test fun smallBreakFollowedByFoulGivesBreakScore() {
-        val testFrame = Frame()
-
-        testFrame.currentPlayer = testFrame.playerOne
+        val testFrame = startAFrame()
 
         testFrame.playShots(arrayOf (
             LegalShot.RED,
@@ -39,9 +37,7 @@ class FrameTests {
         assertEquals(5, testFrame.playerOne.score)
     }
     @Test fun smallBreakFollowedByFoulGivesFoulScore() {
-        val testFrame = Frame()
-
-        testFrame.currentPlayer = testFrame.playerOne
+        val testFrame = startAFrame()
 
         testFrame.playShots(arrayOf (
             LegalShot.RED,
@@ -51,9 +47,7 @@ class FrameTests {
         assertEquals(4, testFrame.playerTwo.score)
     }
     @Test fun smallBreakFollowedByFoulGivesCorrectTurn() {
-        val testFrame = Frame()
-
-        testFrame.currentPlayer = testFrame.playerOne
+        val testFrame = startAFrame()
 
         testFrame.playShots(arrayOf (
             LegalShot.RED,
@@ -63,10 +57,7 @@ class FrameTests {
         assertEquals(testFrame.playerTwo, testFrame.currentPlayer)
     }
     @Test fun breakContainingOpponentPenaltyContinuesCorrectly() {
-        val testFrame = Frame()
-
-        testFrame.currentPlayer = testFrame.playerOne
-
+        val testFrame = startAFrame()
         testFrame.playShots(arrayOf (
             LegalShot.RED,
             LegalShot.BROWN,
@@ -76,6 +67,42 @@ class FrameTests {
             LegalShot.DOT))
 
         assertEquals(19, testFrame.playerOne.score)
+    }
+    @Test fun shotTickerCorrectAfterEqualNumberOfBreaksByEachPlayer() {
+        val testFrame = startAFrame()
+
+        for(x in 1..4) {
+            testFrame.playShots(
+                arrayOf(
+                    LegalShot.RED,
+                    LegalShot.BLACK,
+                    LegalShot.DOT
+                )
+            )
+        }
+
+        assertEquals("17.17.17.17.", testFrame.shotTicker)
+    }
+    @Test fun shotTickerCorrectAfterUnequalNumberOfBreaksByEachPlayer() {
+        val testFrame = startAFrame()
+
+        for(x in 1..5) {
+            testFrame.playShots(
+                arrayOf(
+                    LegalShot.RED,
+                    LegalShot.BLACK,
+                    LegalShot.DOT
+                )
+            )
+        }
+
+        assertEquals("17.17.17.17.17.", testFrame.shotTicker)
+    }
+
+    private fun startAFrame(): Frame {
+        val testFrame = Frame()
+        testFrame.currentPlayer = testFrame.playerOne
+        return testFrame
     }
 
     private fun Frame.playShots(shots : Array<Shot>){

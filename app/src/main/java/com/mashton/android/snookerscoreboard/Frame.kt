@@ -1,15 +1,30 @@
 package com.mashton.android.snookerscoreboard
 
+import kotlin.text.StringBuilder
+
 class Frame {
 
     val playerOne = Player()
     val playerTwo = Player()
+
     var currentPlayer = playerOne
+    private val playerWhoBrokeOff = currentPlayer
+
     var shotTicker: String = ""
+        get() = computeShotTicker()
+
+    private fun computeShotTicker(): String {
+        val tickerBuilder = StringBuilder()
+        for (i in 0 until playerWhoBrokeOff.breaks.size) {
+            tickerBuilder.append(playerWhoBrokeOff.breaks[i].toString())
+            tickerBuilder.append(playerWhoBrokeOff.opponent().breaks.getOrElse(i) { ShotList() }
+                .toString())
+        }
+        return tickerBuilder.toString()
+    }
 
     fun playShot(shot: Shot) {
         currentPlayer.playShot(shot)
-        shotTicker += shot.shortName
         controlTurnFlow(shot)
     }
 
@@ -25,7 +40,7 @@ class Frame {
             IllegalShot.FOUL_FIVE,
             IllegalShot.FOUL_SIX,
             IllegalShot.FOUL_SEVEN -> {
-                otherPlayer().receivePenaltyPoints(shot as IllegalShot)
+                currentPlayer.opponent().receivePenaltyPoints(shot as IllegalShot)
                 switchPlayer()
             }
         }
@@ -33,10 +48,10 @@ class Frame {
 
     private fun switchPlayer() {
         currentPlayer.endBreak()
-        currentPlayer = otherPlayer()
+        currentPlayer = currentPlayer.opponent()
     }
 
-    private fun otherPlayer(): Player = when (currentPlayer) {
+    private fun Player.opponent(): Player = when (this) {
         playerOne -> playerTwo
         playerTwo -> playerOne
         else -> Player()
