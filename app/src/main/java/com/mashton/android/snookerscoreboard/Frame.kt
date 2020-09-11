@@ -25,10 +25,10 @@ class Frame {
 
     fun playShot(shot: Shot) {
         currentPlayer.playShot(shot)
-        controlTurnFlow(shot)
+        controlCurrentPlayerAfterThis(shot)
     }
 
-    private fun controlTurnFlow(shot: Shot) {
+    private fun controlCurrentPlayerAfterThis(shot: Shot) {
         when (shot) {
             LegalShot.DOT, LegalShot.END_OF_TURN -> {
                 switchPlayer()
