@@ -7,7 +7,7 @@ class KeyPressShotMapper {
     private var fPressedForFoul = false
     private var pPressedForPenalty = false
 
-    fun map (keyCode: Int): KeyPressMappingResult
+    fun map (keyCode: Int): Shot?
     {
         val foul = fPressedForFoul
         fPressedForFoul = false
@@ -15,50 +15,46 @@ class KeyPressShotMapper {
         val penalty = pPressedForPenalty
         pPressedForPenalty = false
 
-        val result: KeyPressMappingResult
-
-        result = when (keyCode) {
-            KeyEvent.KEYCODE_PERIOD -> KeyPressMappingResult(true, LegalShot.DOT)
-            KeyEvent.KEYCODE_1 -> KeyPressMappingResult(true, LegalShot.RED)
-            KeyEvent.KEYCODE_2 -> KeyPressMappingResult(true, LegalShot.YELLOW)
-            KeyEvent.KEYCODE_3 -> KeyPressMappingResult(true, LegalShot.GREEN)
+        return when (keyCode) {
+            KeyEvent.KEYCODE_PERIOD -> LegalShot.DOT
+            KeyEvent.KEYCODE_1 -> LegalShot.RED
+            KeyEvent.KEYCODE_2 -> LegalShot.YELLOW
+            KeyEvent.KEYCODE_3 -> LegalShot.GREEN
 
             KeyEvent.KEYCODE_4 -> {
                 when {
-                    foul -> KeyPressMappingResult(true, IllegalShot.FOUL_FOUR)
-                    penalty -> KeyPressMappingResult(true, IllegalShot.PENALTY_FOUR)
-                    else -> KeyPressMappingResult(true, LegalShot.BROWN) } }
+                    foul -> IllegalShot.FOUL_FOUR
+                    penalty -> IllegalShot.PENALTY_FOUR
+                    else -> LegalShot.BROWN } }
 
             KeyEvent.KEYCODE_5 -> {
                 when {
-                    foul -> KeyPressMappingResult(true, IllegalShot.FOUL_FIVE)
-                    penalty -> KeyPressMappingResult(true, IllegalShot.PENALTY_FIVE)
-                    else -> KeyPressMappingResult(true, LegalShot.BLUE) } }
+                    foul -> IllegalShot.FOUL_FIVE
+                    penalty -> IllegalShot.PENALTY_FIVE
+                    else -> LegalShot.BLUE } }
 
             KeyEvent.KEYCODE_6 -> {
                 when {
-                    foul -> KeyPressMappingResult(true, IllegalShot.FOUL_SIX)
-                    penalty -> KeyPressMappingResult(true, IllegalShot.PENALTY_SIX)
-                    else -> KeyPressMappingResult(true, LegalShot.PINK) } }
+                    foul -> IllegalShot.FOUL_SIX
+                    penalty -> IllegalShot.PENALTY_SIX
+                    else -> LegalShot.PINK } }
 
             KeyEvent.KEYCODE_7 -> {
                 when {
-                    foul -> KeyPressMappingResult(true, IllegalShot.FOUL_SEVEN)
-                    penalty -> KeyPressMappingResult(true, IllegalShot.PENALTY_SEVEN)
-                    else -> KeyPressMappingResult(true, LegalShot.BLACK) } }
+                    foul -> IllegalShot.FOUL_SEVEN
+                    penalty -> IllegalShot.PENALTY_SEVEN
+                    else -> LegalShot.BLACK } }
 
             KeyEvent.KEYCODE_F -> {
                 fPressedForFoul = true
-                KeyPressMappingResult(true, null)
-            }
+                null }
 
             KeyEvent.KEYCODE_P -> {
                 pPressedForPenalty = true
-                KeyPressMappingResult(true, null) }
+                null }
 
-            else -> KeyPressMappingResult(false, null)
+            else -> null
         }
-        return result
     }
 
 }

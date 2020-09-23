@@ -40,10 +40,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         val mappingResult = keyPressShotMapper.map(keyCode)
-        mappingResult.shotToPlay?.play()
-        if (!mappingResult.handled) super.onKeyDown(keyCode, event)
+        mappingResult?.shotToPlay?.play()
+        if (mappingResult == null) super.onKeyDown(keyCode, event)
         return true
     }
+
 
     private fun Shot.play() {
         frame.playShot(this)
