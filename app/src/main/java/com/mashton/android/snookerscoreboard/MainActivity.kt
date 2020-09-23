@@ -24,12 +24,16 @@ class MainActivity : AppCompatActivity() {
         dotButton.setOnClickListener {playShot(LegalShot.DOT)}
 
         scoreTicker = findViewById(R.id.scoreTicker)
+        playerOneScore = findViewById(R.id.playerOneScore)
+        playerTwoScore = findViewById(R.id.playerTwoScore)
 
     }
 
     private val frame = Frame()
 
     private lateinit var scoreTicker: TextView
+    private lateinit var playerOneScore: TextView
+    private lateinit var playerTwoScore: TextView
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         return when (keyCode) {
@@ -79,5 +83,8 @@ class MainActivity : AppCompatActivity() {
     private fun playShot(shot: Shot) {
         frame.playShot(shot)
         scoreTicker.text = frame.shotTicker
+        playerOneScore.text = frame.playerOne.score.toString()
+        playerTwoScore.text = frame.playerTwo.score.toString()
+
     }
 }
