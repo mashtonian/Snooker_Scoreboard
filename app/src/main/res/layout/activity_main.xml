@@ -1,92 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout2"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/playerOneScore"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="0"
-            android:textAlignment="center"
-            android:textSize="60sp"
-            tools:text="0" />
+    <TextView
+        android:id="@+id/playerOneScore"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textAlignment="center"
+        android:textSize="60sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/playerTwoScore"
+        app:layout_constraintEnd_toStartOf="@+id/playerTwoScore"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="0" />
 
-        <TextView
-            android:id="@+id/playerTwoScore"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="0"
-            android:textAlignment="center"
-            android:textSize="60sp"
-            tools:text="0" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/playerTwoScore"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textAlignment="center"
+        android:textSize="60sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/playerOneScore"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="0" />
+
 
     <TextView
         android:id="@+id/scoreTicker"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Play some shots!"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="@+id/playerOneScore"
+        app:layout_constraintStart_toEndOf="@+id/playerOneScore"
+        app:layout_constraintTop_toBottomOf="@+id/playerOneScore"
+        tools:text="Shot Ticker" />
 
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scoreTicker">
 
         <Button
             android:id="@+id/buttonPen5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="PEN 5"
-            tools:layout_conversion_absoluteHeight="104dp"
-            tools:layout_conversion_absoluteWidth="0dp"
-            tools:layout_editor_absoluteX="411dp"
-            tools:layout_editor_absoluteY="0dp" />
+            app:layout_constraintBaseline_toBaselineOf="@+id/buttonBlack"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/buttonBlack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="BLACK"
-            tools:layout_conversion_absoluteHeight="104dp"
-            tools:layout_conversion_absoluteWidth="0dp"
-            tools:layout_editor_absoluteX="411dp"
-            tools:layout_editor_absoluteY="0dp" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/buttonPen5" />
 
         <Button
             android:id="@+id/buttonDot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="DOT"
-            tools:layout_conversion_absoluteHeight="71dp"
-            tools:layout_conversion_absoluteWidth="0dp"
-            tools:layout_editor_absoluteX="411dp"
-            tools:layout_editor_absoluteY="0dp" />
+            app:layout_constraintBaseline_toBaselineOf="@+id/buttonBlack"
+            app:layout_constraintStart_toEndOf="@+id/buttonBlack" />
 
         <Button
             android:id="@+id/buttonRed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="RED"
-            tools:layout_conversion_absoluteHeight="71dp"
-            tools:layout_conversion_absoluteWidth="0dp"
-            tools:layout_editor_absoluteX="413dp"
-            tools:layout_editor_absoluteY="0dp" />
+            app:layout_constraintBaseline_toBaselineOf="@+id/buttonDot"
+            app:layout_constraintStart_toEndOf="@+id/buttonDot" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </LinearLayout>
-</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

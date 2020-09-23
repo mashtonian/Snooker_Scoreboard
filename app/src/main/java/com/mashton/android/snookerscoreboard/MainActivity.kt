@@ -35,7 +35,15 @@ class MainActivity : AppCompatActivity() {
     private lateinit var playerOneScore: TextView
     private lateinit var playerTwoScore: TextView
 
+    var fPressedForFoul = false
+    var pPressedForPenalty = false
+
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        var foul = fPressedForFoul
+        fPressedForFoul = false
+
+        var penalty = pPressedForPenalty
+        pPressedForPenalty = false
         return when (keyCode) {
             KeyEvent.KEYCODE_1 -> {
                 playShot(LegalShot.RED)
@@ -53,27 +61,45 @@ class MainActivity : AppCompatActivity() {
             }
 
             KeyEvent.KEYCODE_4 -> {
-                playShot(LegalShot.BROWN)
+                if(foul) playShot(IllegalShot.FOUL_FOUR)
+                if(penalty) playShot(IllegalShot.PENALTY_FOUR)
+                if(!foul && !penalty) playShot(LegalShot.BROWN)
                 true
             }
 
             KeyEvent.KEYCODE_5 -> {
-                playShot(LegalShot.BLUE)
+                if(foul) playShot(IllegalShot.FOUL_FIVE)
+                if(penalty) playShot(IllegalShot.PENALTY_FIVE)
+                if(!foul && !penalty) playShot(LegalShot.BLUE)
                 true
             }
 
             KeyEvent.KEYCODE_6 -> {
-                playShot(LegalShot.PINK)
+                if(foul) playShot(IllegalShot.FOUL_SIX)
+                if(penalty) playShot(IllegalShot.PENALTY_SIX)
+                if(!foul && !penalty) playShot(LegalShot.PINK)
                 true
             }
 
             KeyEvent.KEYCODE_7 -> {
-                playShot(LegalShot.BLACK)
+                if(foul) playShot(IllegalShot.FOUL_SEVEN)
+                if(penalty) playShot(IllegalShot.PENALTY_SEVEN)
+                if(!foul && !penalty) playShot(LegalShot.BLACK)
                 true
             }
 
             KeyEvent.KEYCODE_PERIOD -> {
                 playShot(LegalShot.DOT)
+                true
+            }
+
+            KeyEvent.KEYCODE_F -> {
+                fPressedForFoul = true
+                true
+            }
+
+            KeyEvent.KEYCODE_P -> {
+                pPressedForPenalty = true
                 true
             }
             else -> super.onKeyUp(keyCode, event)

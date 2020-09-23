@@ -24,25 +24,19 @@ class Frame {
     }
 
     fun playShot(shot: Shot) {
-        currentPlayer.playShot(shot)
         controlCurrentPlayerAfterThis(shot)
+        currentPlayer.playShot(shot)
     }
 
     private fun controlCurrentPlayerAfterThis(shot: Shot) {
         when (shot) {
-            LegalShot.DOT, LegalShot.END_OF_TURN -> {
-                switchPlayer()
-            }
-
-            LegalShot.END_OF_FRAME -> currentPlayer.endBreak()
-
+            LegalShot.DOT, LegalShot.END_OF_TURN,
             IllegalShot.FOUL_FOUR,
             IllegalShot.FOUL_FIVE,
             IllegalShot.FOUL_SIX,
-            IllegalShot.FOUL_SEVEN -> {
-                currentPlayer.opponent().receivePenaltyPoints(shot as IllegalShot)
-                switchPlayer()
-            }
+            IllegalShot.FOUL_SEVEN->  switchPlayer()
+
+            LegalShot.END_OF_FRAME -> currentPlayer.endBreak()
         }
     }
 
