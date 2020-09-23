@@ -2,20 +2,22 @@ package com.mashton.android.snookerscoreboard
 
 import android.view.KeyEvent
 
+data class KeyMapperResult(var shot :Shot?, var handled :Boolean)
+
 class KeyPressShotMapper {
 
     private var fPressedForFoul = false
     private var pPressedForPenalty = false
 
-    fun map (keyCode: Int): Shot?
-    {
+    fun map (keyCode: Int): KeyMapperResult {
         val foul = fPressedForFoul
         fPressedForFoul = false
 
         val penalty = pPressedForPenalty
         pPressedForPenalty = false
 
-        return when (keyCode) {
+        var handled = true
+        val shot :Shot? = when (keyCode) {
             KeyEvent.KEYCODE_PERIOD -> LegalShot.DOT
             KeyEvent.KEYCODE_1 -> LegalShot.RED
             KeyEvent.KEYCODE_2 -> LegalShot.YELLOW
@@ -53,8 +55,12 @@ class KeyPressShotMapper {
                 pPressedForPenalty = true
                 null }
 
-            else -> null
+            else -> {
+                handled = false
+                null
+            }
         }
-    }
 
+        return KeyMapperResult(shot, handled)
+    }
 }

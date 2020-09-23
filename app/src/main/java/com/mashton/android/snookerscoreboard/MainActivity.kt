@@ -12,18 +12,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val redButton: Button = findViewById(R.id.buttonRed)
-        redButton.setOnClickListener {LegalShot.RED.play()}
-
-        val blackButton: Button = findViewById(R.id.buttonBlack)
-        blackButton.setOnClickListener {LegalShot.BLACK.play()}
-
-        val penaltyFiveButton: Button = findViewById(R.id.buttonPen5)
-        penaltyFiveButton.setOnClickListener {IllegalShot.PENALTY_FIVE.play()}
-
-        val dotButton: Button = findViewById(R.id.buttonDot)
-        dotButton.setOnClickListener {LegalShot.DOT.play()}
-
         scoreTicker = findViewById(R.id.scoreTicker)
 
         frame.playerOne.scoreView = findViewById(R.id.playerOneScore)
@@ -40,8 +28,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         val mappingResult = keyPressShotMapper.map(keyCode)
-        mappingResult?.shotToPlay?.play()
-        if (mappingResult == null) super.onKeyDown(keyCode, event)
+        mappingResult.shot?.play()
+        if (!mappingResult.handled) super.onKeyDown(keyCode, event)
         return true
     }
 

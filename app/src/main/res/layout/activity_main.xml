@@ -45,46 +45,4 @@
         tools:text="Shot Ticker" />
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scoreTicker">
-
-        <Button
-            android:id="@+id/buttonPen5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="PEN 5"
-            app:layout_constraintBaseline_toBaselineOf="@+id/buttonBlack"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
-            android:id="@+id/buttonBlack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="BLACK"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/buttonPen5" />
-
-        <Button
-            android:id="@+id/buttonDot"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="DOT"
-            app:layout_constraintBaseline_toBaselineOf="@+id/buttonBlack"
-            app:layout_constraintStart_toEndOf="@+id/buttonBlack" />
-
-        <Button
-            android:id="@+id/buttonRed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="RED"
-            app:layout_constraintBaseline_toBaselineOf="@+id/buttonDot"
-            app:layout_constraintStart_toEndOf="@+id/buttonDot" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
