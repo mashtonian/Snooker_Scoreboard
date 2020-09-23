@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:text="0"
         android:textAlignment="center"
+        android:textColor="#F44336"
         android:textSize="60sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/playerTwoScore"
         app:layout_constraintEnd_toStartOf="@+id/playerTwoScore"

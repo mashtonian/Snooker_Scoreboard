@@ -1,16 +1,18 @@
 package com.mashton.android.snookerscoreboard
 
+import android.graphics.Color
 import kotlin.text.StringBuilder
 
 class Frame {
 
     val playerOne = Player()
     val playerTwo = Player()
+    val players = listOf(playerOne, playerTwo)
 
     var currentPlayer = playerOne
     private val playerWhoBrokeOff = currentPlayer
 
-    var shotTicker: String = ""
+    val shotTicker: String
         get() = computeShotTicker()
 
     private fun computeShotTicker(): String {
@@ -42,7 +44,9 @@ class Frame {
 
     private fun switchPlayer() {
         currentPlayer.endBreak()
+        currentPlayer.scoreView.setTextColor(Color.DKGRAY)
         currentPlayer = currentPlayer.opponent()
+        currentPlayer.scoreView.setTextColor(Color.RED)
     }
 
     private fun Player.opponent(): Player = when (this) {
