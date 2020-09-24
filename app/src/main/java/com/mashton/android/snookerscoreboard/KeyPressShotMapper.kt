@@ -22,6 +22,7 @@ class KeyPressShotMapper {
             KeyEvent.KEYCODE_1 -> LegalShot.RED
             KeyEvent.KEYCODE_2 -> LegalShot.YELLOW
             KeyEvent.KEYCODE_3 -> LegalShot.GREEN
+            KeyEvent.KEYCODE_T -> LegalShot.END_OF_TURN
 
             KeyEvent.KEYCODE_4 -> {
                 when {

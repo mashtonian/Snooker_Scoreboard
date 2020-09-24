@@ -100,9 +100,7 @@ class FrameTests {
     }
 
     private fun startAFrame(): Frame {
-        val testFrame = Frame()
-        testFrame.currentPlayer = testFrame.playerOne
-        return testFrame
+        return Frame()
     }
 
     private fun Frame.playShots(shots : Array<Shot>){

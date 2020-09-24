@@ -4,7 +4,6 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
-import android.widget.Button
 import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
@@ -14,16 +13,18 @@ class MainActivity : AppCompatActivity() {
 
         scoreTicker = findViewById(R.id.scoreTicker)
 
-        frame.playerOne.scoreView = findViewById(R.id.playerOneScore)
-        frame.playerTwo.scoreView = findViewById(R.id.playerTwoScore)
+        playerOneScoreView = findViewById(R.id.playerOneScore)
+        playerTwoScoreView = findViewById(R.id.playerTwoScore)
 
-        frame.playerOne.scoreView.setTextColor(Color.RED)
-        frame.playerTwo.scoreView.setTextColor(Color.DKGRAY)
+        updateUiElements()
     }
 
     private val frame = Frame()
 
     private lateinit var scoreTicker: TextView
+    private lateinit var playerOneScoreView: TextView
+    private lateinit var playerTwoScoreView: TextView
+
     private val keyPressShotMapper = KeyPressShotMapper()
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
@@ -33,7 +34,6 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-
     private fun Shot.play() {
         frame.playShot(this)
         updateUiElements()
@@ -42,7 +42,17 @@ class MainActivity : AppCompatActivity() {
     private fun updateUiElements() {
         scoreTicker.text = frame.shotTicker
         for (player in frame.players) {
-            player.scoreView.text = player.score.toString()
+            player.findScoreViewByPlayer()?.text = player.score.toString()
+        }
+        frame.currentPlayer.findScoreViewByPlayer()?.setTextColor(Color.RED)
+        frame.nonCurrentPlayer.findScoreViewByPlayer()?.setTextColor(Color.DKGRAY)
+    }
+
+    private fun Player.findScoreViewByPlayer(): TextView? {
+        return when (this) {
+            frame.playerOne -> playerOneScoreView
+            frame.playerTwo -> playerTwoScoreView
+            else -> null
         }
     }
 }

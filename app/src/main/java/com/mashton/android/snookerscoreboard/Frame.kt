@@ -1,8 +1,5 @@
 package com.mashton.android.snookerscoreboard
 
-import android.graphics.Color
-import kotlin.text.StringBuilder
-
 class Frame {
 
     val playerOne = Player()
@@ -10,43 +7,51 @@ class Frame {
     val players = listOf(playerOne, playerTwo)
 
     var currentPlayer = playerOne
+    val nonCurrentPlayer
+        get() = currentPlayer.opponent()
+
     private val playerWhoBrokeOff = currentPlayer
+
+    init {currentPlayer.startNewBreak()}
 
     val shotTicker: String
         get() = computeShotTicker()
 
     private fun computeShotTicker(): String {
-        val tickerBuilder = StringBuilder()
-        for (i in 0 until playerWhoBrokeOff.breaks.size) {
-            tickerBuilder.append(playerWhoBrokeOff.breaks[i].toString())
-            tickerBuilder.append(playerWhoBrokeOff.opponent().breaks.getOrElse(i) { ShotList() }
-                .toString())
-        }
-        return tickerBuilder.toString()
+        val mergedListOfBreaks = with(setOf(playerOne.breaks, playerTwo.breaks).sortedByDescending { it.count() }) {
+            first().mapIndexed { index, e ->
+                listOfNotNull(e, last().getOrNull(index))
+            }
+        }.flatten()
+
+        return mergedListOfBreaks.joinToString(separator="")
     }
 
     fun playShot(shot: Shot) {
-        controlCurrentPlayerAfterThis(shot)
         currentPlayer.playShot(shot)
+        controlCurrentPlayerAfterThis(shot)
     }
 
     private fun controlCurrentPlayerAfterThis(shot: Shot) {
         when (shot) {
+            LegalShot.DOT, LegalShot.END_OF_TURN -> {
+                switchPlayer()
+            }
+
             LegalShot.DOT, LegalShot.END_OF_TURN,
             IllegalShot.FOUL_FOUR,
             IllegalShot.FOUL_FIVE,
             IllegalShot.FOUL_SIX,
-            IllegalShot.FOUL_SEVEN->  switchPlayer()
-
-            LegalShot.END_OF_FRAME -> currentPlayer.endBreak()
+            IllegalShot.FOUL_SEVEN -> {
+                switchPlayer()
+                currentPlayer.receivePenaltyPoints(shot as IllegalShot)
+            }
         }
     }
 
     private fun switchPlayer() {
-        currentPlayer.endBreak()
-        currentPlayer.scoreView.setTextColor(Color.DKGRAY)
         currentPlayer = currentPlayer.opponent()
-        currentPlayer.scoreView.setTextColor(Color.RED)
+        currentPlayer.startNewBreak()
     }
 
     private fun Player.opponent(): Player = when (this) {
@@ -54,6 +59,4 @@ class Frame {
         playerTwo -> playerOne
         else -> Player()
     }
-
-
 }

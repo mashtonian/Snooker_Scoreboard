@@ -14,8 +14,8 @@ enum class LegalShot(override val value: Int, override val shortName: String) : 
 }
 
 enum class IllegalShot(override val value: Int, override val shortName: String) : Shot {
-    FOUL_FOUR(4, "F4"), FOUL_FIVE(5, "F5"),
-    FOUL_SIX(6, "F6"), FOUL_SEVEN(7, "F7"),
+    FOUL_FOUR(0, "F4"), FOUL_FIVE(0, "F5"),
+    FOUL_SIX(0, "F6"), FOUL_SEVEN(0, "F7"),
     PENALTY_FOUR(4, "P4"), PENALTY_FIVE(5, "P5"),
     PENALTY_SIX(6, "P6"), PENALTY_SEVEN(7, "P7")
 }
