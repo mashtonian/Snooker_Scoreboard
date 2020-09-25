@@ -10,6 +10,10 @@ class KeyPressShotMapper {
     private var pPressedForPenalty = false
 
     fun map (keyCode: Int): KeyMapperResult {
+
+        //ignore spurious NumLock keypresses for my shonky BlueTooth numpad
+        if (keyCode==KeyEvent.KEYCODE_NUM_LOCK) return KeyMapperResult(null, false)
+
         val foul = fPressedForFoul
         fPressedForFoul = false
 
@@ -18,41 +22,41 @@ class KeyPressShotMapper {
 
         var handled = true
         val shot :Shot? = when (keyCode) {
-            KeyEvent.KEYCODE_PERIOD -> LegalShot.DOT
-            KeyEvent.KEYCODE_1 -> LegalShot.RED
-            KeyEvent.KEYCODE_2 -> LegalShot.YELLOW
-            KeyEvent.KEYCODE_3 -> LegalShot.GREEN
-            KeyEvent.KEYCODE_T -> LegalShot.END_OF_TURN
+            KeyEvent.KEYCODE_PERIOD, KeyEvent.KEYCODE_NUMPAD_DOT -> LegalShot.DOT
+            KeyEvent.KEYCODE_1, KeyEvent.KEYCODE_NUMPAD_1 -> LegalShot.RED
+            KeyEvent.KEYCODE_2, KeyEvent.KEYCODE_NUMPAD_2 -> LegalShot.YELLOW
+            KeyEvent.KEYCODE_3, KeyEvent.KEYCODE_NUMPAD_3 -> LegalShot.GREEN
+            KeyEvent.KEYCODE_T, KeyEvent.KEYCODE_NUMPAD_ADD -> LegalShot.END_OF_TURN
 
-            KeyEvent.KEYCODE_4 -> {
+            KeyEvent.KEYCODE_4, KeyEvent.KEYCODE_NUMPAD_4 -> {
                 when {
                     foul -> IllegalShot.FOUL_FOUR
                     penalty -> IllegalShot.PENALTY_FOUR
                     else -> LegalShot.BROWN } }
 
-            KeyEvent.KEYCODE_5 -> {
+            KeyEvent.KEYCODE_5, KeyEvent.KEYCODE_NUMPAD_5 -> {
                 when {
                     foul -> IllegalShot.FOUL_FIVE
                     penalty -> IllegalShot.PENALTY_FIVE
                     else -> LegalShot.BLUE } }
 
-            KeyEvent.KEYCODE_6 -> {
+            KeyEvent.KEYCODE_6, KeyEvent.KEYCODE_NUMPAD_6 -> {
                 when {
                     foul -> IllegalShot.FOUL_SIX
                     penalty -> IllegalShot.PENALTY_SIX
                     else -> LegalShot.PINK } }
 
-            KeyEvent.KEYCODE_7 -> {
+            KeyEvent.KEYCODE_7, KeyEvent.KEYCODE_NUMPAD_7 -> {
                 when {
                     foul -> IllegalShot.FOUL_SEVEN
                     penalty -> IllegalShot.PENALTY_SEVEN
                     else -> LegalShot.BLACK } }
 
-            KeyEvent.KEYCODE_F -> {
+            KeyEvent.KEYCODE_F, KeyEvent.KEYCODE_NUMPAD_MULTIPLY -> {
                 fPressedForFoul = true
                 null }
 
-            KeyEvent.KEYCODE_P -> {
+            KeyEvent.KEYCODE_P, KeyEvent.KEYCODE_NUMPAD_DIVIDE -> {
                 pPressedForPenalty = true
                 null }
 

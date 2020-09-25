@@ -17,7 +17,6 @@ class Player {
 
     fun receivePenaltyPoints(shot: IllegalShot){
         addPenaltyPoints(shot)
-        startNewBreak()
     }
 
     private fun addPenaltyPoints(shot: IllegalShot) {
