@@ -10,6 +10,9 @@ class Frame {
     val nonCurrentPlayer
         get() = currentPlayer.opponent()
 
+    private val frameStarted
+        get() = computeShotTicker() != ""
+
     init {currentPlayer.startNewBreak()}
 
     val shotTicker: String
@@ -46,11 +49,14 @@ class Frame {
     }
 
     private fun removeLastShot() {
-        if (currentPlayer.numberOfShotsInCurrentBreak != 0) currentPlayer.removeLastShot()
-        else {
-            currentPlayer.removeCurrentBreak()
-            currentPlayer = currentPlayer.opponent()
+
+        if (frameStarted) {
             if (currentPlayer.numberOfShotsInCurrentBreak != 0) currentPlayer.removeLastShot()
+            else {
+                currentPlayer.removeCurrentBreak()
+                currentPlayer = currentPlayer.opponent()
+                currentPlayer.removeLastShot()
+            }
         }
     }
 
