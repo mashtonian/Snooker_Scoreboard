@@ -5,6 +5,7 @@ class Frame {
     val playerOne = Player()
     val playerTwo = Player()
     val players = listOf(playerOne, playerTwo)
+    private lateinit var winner :Player
 
     var currentPlayer = playerOne
     val nonCurrentPlayer
@@ -13,7 +14,7 @@ class Frame {
     private val frameStarted
         get() = computeShotTicker() != ""
 
-    init {currentPlayer.startNewBreak()}
+    init { currentPlayer.startNewBreak() }
 
     val shotTicker: String
         get() = computeShotTicker()
@@ -34,32 +35,60 @@ class Frame {
                 currentPlayer.playShot(shot)
                 switchPlayer()
             }
+
             is LegalShot -> currentPlayer.playShot(shot)
-            is IllegalShot -> {
+            is FoulShot -> {
                 currentPlayer.playShot(shot)
                 switchPlayer()
                 currentPlayer.receivePenaltyPoints(shot)
             }
-            ControlShot.END_OF_TURN -> {
+
+            is PenaltyShot -> {
+                currentPlayer.receivePenaltyPoints(shot)
+            }
+
+            ControlShot.END_OF_TURN
+            -> {
                 currentPlayer.playShot(shot)
                 switchPlayer()
             }
+
+            ControlShot.END_OF_FRAME -> finishFrame()
+
             ControlShot.REMOVE_LAST_SHOT -> removeLastShot()
         }
     }
 
-    private fun removeLastShot() {
+    private fun finishFrame() {
+        if (playerOne.score > playerTwo.score) winner = playerOne
+        if (playerTwo.score > playerOne.score) winner = playerTwo
+    }
 
+
+    private fun removeLastShot() {
         if (frameStarted) {
-            if (currentPlayer.numberOfShotsInCurrentBreak != 0) currentPlayer.removeLastShot()
-            else {
-                currentPlayer.removeCurrentBreak()
-                currentPlayer = currentPlayer.opponent()
-                currentPlayer.removeLastShot()
+            if (currentPlayer.numberOfShotsInCurrentBreak == 0) {
+                removeCurrentBreakAndPreceedingShot()
+                return
             }
+
+            if (currentPlayer.numberOfShotsInCurrentBreak == 1 &&
+                currentPlayer.currentBreak?.lastShot is PenaltyShot &&
+                nonCurrentPlayer.currentBreak?.lastShot is FoulShot)
+            {
+                removeCurrentBreakAndPreceedingShot()
+                return
+            }
+
+            if (currentPlayer.numberOfShotsInCurrentBreak != 0) currentPlayer.removeLastShot()
         }
     }
 
+    private fun removeCurrentBreakAndPreceedingShot() {
+        currentPlayer.removeCurrentBreak()
+        currentPlayer = currentPlayer.opponent()
+        currentPlayer.removeLastShot()
+    }
 
     private fun switchPlayer() {
         currentPlayer = currentPlayer.opponent()

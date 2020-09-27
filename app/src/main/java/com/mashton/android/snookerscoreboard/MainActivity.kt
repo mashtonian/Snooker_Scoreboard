@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         updateUiElements()
     }
 
-    private val frame = Frame()
+    private val match = Match()
 
     private lateinit var scoreTicker: TextView
     private lateinit var playerOneScoreView: TextView
@@ -39,23 +39,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun Shot.play() {
-        frame.playShot(this)
+        match.currentFrame.playShot(this)
         updateUiElements()
     }
 
     private fun updateUiElements() {
-        scoreTicker.text = frame.shotTicker
-        for (player in frame.players) {
+        scoreTicker.text = match.currentFrame.shotTicker
+        for (player in match.currentFrame.players) {
             player.findScoreViewByPlayer()?.text = player.score.toString()
         }
-        frame.currentPlayer.findScoreViewByPlayer()?.setTextColor(Color.RED)
-        frame.nonCurrentPlayer.findScoreViewByPlayer()?.setTextColor(Color.DKGRAY)
+        match.currentFrame.currentPlayer.findScoreViewByPlayer()?.setTextColor(Color.RED)
+        match.currentFrame.nonCurrentPlayer.findScoreViewByPlayer()?.setTextColor(Color.DKGRAY)
     }
 
     private fun Player.findScoreViewByPlayer(): TextView? {
         return when (this) {
-            frame.playerOne -> playerOneScoreView
-            frame.playerTwo -> playerTwoScoreView
+            match.currentFrame.playerOne -> playerOneScoreView
+            match.currentFrame.playerTwo -> playerTwoScoreView
             else -> null
         }
     }

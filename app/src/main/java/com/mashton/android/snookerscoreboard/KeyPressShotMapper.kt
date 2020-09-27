@@ -31,26 +31,26 @@ class KeyPressShotMapper {
 
             KeyEvent.KEYCODE_4, KeyEvent.KEYCODE_NUMPAD_4 -> {
                 when {
-                    foul -> IllegalShot.FOUL_FOUR
-                    penalty -> IllegalShot.PENALTY_FOUR
+                    foul -> FoulShot.FOUL_FOUR
+                    penalty -> PenaltyShot.PENALTY_FOUR
                     else -> LegalShot.BROWN } }
 
             KeyEvent.KEYCODE_5, KeyEvent.KEYCODE_NUMPAD_5 -> {
                 when {
-                    foul -> IllegalShot.FOUL_FIVE
-                    penalty -> IllegalShot.PENALTY_FIVE
+                    foul -> FoulShot.FOUL_FIVE
+                    penalty -> PenaltyShot.PENALTY_FIVE
                     else -> LegalShot.BLUE } }
 
             KeyEvent.KEYCODE_6, KeyEvent.KEYCODE_NUMPAD_6 -> {
                 when {
-                    foul -> IllegalShot.FOUL_SIX
-                    penalty -> IllegalShot.PENALTY_SIX
+                    foul -> FoulShot.FOUL_SIX
+                    penalty -> PenaltyShot.PENALTY_SIX
                     else -> LegalShot.PINK } }
 
             KeyEvent.KEYCODE_7, KeyEvent.KEYCODE_NUMPAD_7 -> {
                 when {
-                    foul -> IllegalShot.FOUL_SEVEN
-                    penalty -> IllegalShot.PENALTY_SEVEN
+                    foul -> FoulShot.FOUL_SEVEN
+                    penalty -> PenaltyShot.PENALTY_SEVEN
                     else -> LegalShot.BLACK } }
 
             KeyEvent.KEYCODE_F, KeyEvent.KEYCODE_NUMPAD_MULTIPLY -> {
