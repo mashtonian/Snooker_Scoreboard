@@ -15,6 +15,8 @@ class MainActivity : AppCompatActivity() {
 
         playerOneScoreView = findViewById(R.id.playerOneScore)
         playerTwoScoreView = findViewById(R.id.playerTwoScore)
+        playerOneNameView = findViewById(R.id.playerOneName)
+        playerTwoNameView = findViewById(R.id.playerTwoName)
 
         updateUiElements()
     }
@@ -24,6 +26,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var scoreTicker: TextView
     private lateinit var playerOneScoreView: TextView
     private lateinit var playerTwoScoreView: TextView
+    private lateinit var playerOneNameView: TextView
+    private lateinit var playerTwoNameView: TextView
 
     private val keyPressShotMapper = KeyPressShotMapper()
 

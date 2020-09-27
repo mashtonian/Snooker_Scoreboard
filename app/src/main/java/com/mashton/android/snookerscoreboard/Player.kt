@@ -11,9 +11,14 @@ class Player {
     val breakScore: Int
         get() = currentBreak.score
 
+    val numberOfShotsInCurrentBreak: Int
+        get() = currentBreak.numberOfShots
+
     fun startNewBreak() { breaks.add(ShotList()) }
 
     fun playShot(shot: Shot) { currentBreak.add(shot) }
+
+    fun removeLastShot() {currentBreak.removeLastShot()}
 
     fun receivePenaltyPoints(shot: IllegalShot){
         addPenaltyPoints(shot)
@@ -29,6 +34,10 @@ class Player {
                 else -> shot
             }
         )
+    }
+
+    fun removeCurrentBreak() {
+        breaks.removeLast()
     }
 
     private val currentBreak: ShotList

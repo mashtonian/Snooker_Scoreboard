@@ -10,8 +10,6 @@ class Frame {
     val nonCurrentPlayer
         get() = currentPlayer.opponent()
 
-    private val playerWhoBrokeOff = currentPlayer
-
     init {currentPlayer.startNewBreak()}
 
     val shotTicker: String
@@ -28,26 +26,34 @@ class Frame {
     }
 
     fun playShot(shot: Shot) {
-        currentPlayer.playShot(shot)
-        controlCurrentPlayerAfterThis(shot)
-    }
-
-    private fun controlCurrentPlayerAfterThis(shot: Shot) {
-        when (shot) {
-            LegalShot.DOT, LegalShot.END_OF_TURN -> {
+        when (shot ) {
+            LegalShot.DOT -> {
+                currentPlayer.playShot(shot)
                 switchPlayer()
             }
-
-            LegalShot.DOT, LegalShot.END_OF_TURN,
-            IllegalShot.FOUL_FOUR,
-            IllegalShot.FOUL_FIVE,
-            IllegalShot.FOUL_SIX,
-            IllegalShot.FOUL_SEVEN -> {
+            is LegalShot -> currentPlayer.playShot(shot)
+            is IllegalShot -> {
+                currentPlayer.playShot(shot)
                 switchPlayer()
-                currentPlayer.receivePenaltyPoints(shot as IllegalShot)
+                currentPlayer.receivePenaltyPoints(shot)
             }
+            ControlShot.END_OF_TURN -> {
+                currentPlayer.playShot(shot)
+                switchPlayer()
+            }
+            ControlShot.REMOVE_LAST_SHOT -> removeLastShot()
         }
     }
+
+    private fun removeLastShot() {
+        if (currentPlayer.numberOfShotsInCurrentBreak != 0) currentPlayer.removeLastShot()
+        else {
+            currentPlayer.removeCurrentBreak()
+            currentPlayer = currentPlayer.opponent()
+            if (currentPlayer.numberOfShotsInCurrentBreak != 0) currentPlayer.removeLastShot()
+        }
+    }
+
 
     private fun switchPlayer() {
         currentPlayer = currentPlayer.opponent()

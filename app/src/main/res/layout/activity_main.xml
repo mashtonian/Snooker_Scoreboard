@@ -12,19 +12,21 @@
         android:id="@+id/playerOneScore"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:text="0"
         android:textAlignment="center"
         android:textColor="#F44336"
         android:textSize="120sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/playerTwoScore"
         app:layout_constraintEnd_toStartOf="@+id/playerTwoScore"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="0" />
 
     <TextView
         android:id="@+id/playerTwoScore"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:text="0"
         android:textAlignment="center"
         android:textSize="120sp"
@@ -43,6 +45,34 @@
         app:layout_constraintStart_toEndOf="@+id/playerOneScore"
         app:layout_constraintTop_toBottomOf="@+id/playerOneScore"
         tools:text="Shot Ticker" />
+
+    <EditText
+        android:id="@+id/playerOneName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="5dp"
+        android:editable="false"
+        android:text="Player One"
+        app:layout_constraintBottom_toTopOf="@+id/playerOneScore"
+        app:layout_constraintEnd_toEndOf="@+id/playerOneScore"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/playerOneScore"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/playerTwoName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="5dp"
+        android:editable="false"
+        android:text="Player Two"
+        app:layout_constraintBottom_toTopOf="@+id/playerTwoScore"
+        app:layout_constraintEnd_toEndOf="@+id/playerTwoScore"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/playerOneScore"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
