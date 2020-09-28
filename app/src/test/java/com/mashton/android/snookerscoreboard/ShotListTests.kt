@@ -4,7 +4,7 @@ import org.junit.Test
 
 class ShotListTests {
     @Test fun maximumGivesScoreOf147() {
-        val testShotList = ShotList()
+        val testShotList = Break(Player("foo"))
 
         for (x in 1..15) {
             testShotList.playShots(arrayOf (
@@ -23,7 +23,7 @@ class ShotListTests {
         assertEquals(147, testShotList.score)
     }
     @Test fun maximumGivesCorrectToString() {
-        val testShotList = ShotList()
+        val testShotList = Break(Player("foo"))
 
         for (x in 1..15) {
             testShotList.playShots(arrayOf (
@@ -38,14 +38,14 @@ class ShotListTests {
             LegalShot.BLUE,
             LegalShot.PINK,
             LegalShot.BLACK,
-            LegalShot.END_OF_FRAME
+            ControlShot.END_OF_FRAME
         ))
 
         assertEquals("171717171717171717171717171717234567EOF",
             testShotList.toString())
     }
 
-    private fun ShotList.playShots(shots : Array<Shot>){
+    private fun Break.playShots(shots : Array<Shot>){
         for (shot in shots) this.add(shot)
     }
 

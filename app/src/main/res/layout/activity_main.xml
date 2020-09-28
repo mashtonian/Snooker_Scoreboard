@@ -60,6 +60,17 @@
         app:layout_constraintStart_toStartOf="@+id/playerOneScore"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/playerOneFrameScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toBottomOf="@id/playerOneName"
+        app:layout_constraintStart_toEndOf="@id/playerOneName"
+        app:layout_constraintTop_toTopOf="@id/playerOneName"
+        tools:text="(1)" />
+
     <EditText
         android:id="@+id/playerTwoName"
         android:layout_width="wrap_content"
@@ -73,6 +84,17 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/playerOneScore"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/playerTwoFrameScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toBottomOf="@id/playerTwoName"
+        app:layout_constraintEnd_toStartOf="@id/playerTwoName"
+        app:layout_constraintTop_toTopOf="@id/playerTwoName"
+        tools:text="(1)" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

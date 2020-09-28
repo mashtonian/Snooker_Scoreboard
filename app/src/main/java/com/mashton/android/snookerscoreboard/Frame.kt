@@ -1,103 +1,106 @@
 package com.mashton.android.snookerscoreboard
 
-class Frame {
+class Frame(val playerOne: Player, val playerTwo: Player) {
 
-    val playerOne = Player()
-    val playerTwo = Player()
     val players = listOf(playerOne, playerTwo)
-    private lateinit var winner :Player
+    var winner :Player? = null
 
     var currentPlayer = playerOne
+
     val nonCurrentPlayer
         get() = currentPlayer.opponent()
 
-    private val frameStarted
-        get() = computeShotTicker() != ""
+    fun scoreFor(player :Player): Int {
+        return breaks.filter {it.player == player} .sumBy {it.score}
+    }
 
-    init { currentPlayer.startNewBreak() }
+    private val breaks: MutableList<Break> = mutableListOf(Break(currentPlayer))
+    private val currentBreak: Break
+        get() = breaks.last()
+
+    private val previousBreak: Break?
+        get() = breaks.getOrNull(breaks.lastIndex - 1)
+
+    private val frameStarted
+        get() = !(breaks.size == 1 && breaks.first().numberOfShots == 0 )
 
     val shotTicker: String
         get() = computeShotTicker()
 
     private fun computeShotTicker(): String {
-        val mergedListOfBreaks = with(setOf(playerOne.breaks, playerTwo.breaks).sortedByDescending { it.count() }) {
-            first().mapIndexed { index, e ->
-                listOfNotNull(e, last().getOrNull(index))
-            }
-        }.flatten()
-
-        return mergedListOfBreaks.joinToString(separator="")
+        return breaks.joinToString(separator="")
     }
+
+    fun finishFrame() {
+        if (scoreFor(playerOne) > scoreFor(playerTwo)) winner = playerOne
+        if (scoreFor(playerTwo) > scoreFor(playerOne)) winner = playerTwo
+    }
+
 
     fun playShot(shot: Shot) {
         when (shot ) {
             LegalShot.DOT -> {
-                currentPlayer.playShot(shot)
+                currentBreak.add(shot)
                 switchPlayer()
             }
 
-            is LegalShot -> currentPlayer.playShot(shot)
+            is LegalShot -> currentBreak.add(shot)
             is FoulShot -> {
-                currentPlayer.playShot(shot)
+                currentBreak.add(shot)
                 switchPlayer()
-                currentPlayer.receivePenaltyPoints(shot)
+                currentBreak.addPenaltyPoints(shot)
             }
 
             is PenaltyShot -> {
-                currentPlayer.receivePenaltyPoints(shot)
+                currentBreak.addPenaltyPoints(shot)
             }
 
-            ControlShot.END_OF_TURN
-            -> {
-                currentPlayer.playShot(shot)
+            ControlShot.END_OF_TURN -> {
+                currentBreak.add(shot)
                 switchPlayer()
             }
 
-            ControlShot.END_OF_FRAME -> finishFrame()
+            ControlShot.END_OF_FRAME -> {
+                currentBreak.add(shot)
+            }
 
             ControlShot.REMOVE_LAST_SHOT -> removeLastShot()
         }
     }
 
-    private fun finishFrame() {
-        if (playerOne.score > playerTwo.score) winner = playerOne
-        if (playerTwo.score > playerOne.score) winner = playerTwo
-    }
-
-
     private fun removeLastShot() {
         if (frameStarted) {
-            if (currentPlayer.numberOfShotsInCurrentBreak == 0) {
-                removeCurrentBreakAndPreceedingShot()
+            if (currentBreak.numberOfShots == 0) {
+                removeCurrentBreakAndPrecedingShot()
                 return
             }
 
-            if (currentPlayer.numberOfShotsInCurrentBreak == 1 &&
-                currentPlayer.currentBreak?.lastShot is PenaltyShot &&
-                nonCurrentPlayer.currentBreak?.lastShot is FoulShot)
+            if (currentBreak.numberOfShots == 1 &&
+                currentBreak.lastShot is PenaltyShot &&
+                previousBreak?.lastShot is FoulShot)
             {
-                removeCurrentBreakAndPreceedingShot()
+                removeCurrentBreakAndPrecedingShot()
                 return
             }
 
-            if (currentPlayer.numberOfShotsInCurrentBreak != 0) currentPlayer.removeLastShot()
+            if (currentBreak.numberOfShots != 0) currentBreak.removeLastShot()
         }
     }
 
-    private fun removeCurrentBreakAndPreceedingShot() {
-        currentPlayer.removeCurrentBreak()
-        currentPlayer = currentPlayer.opponent()
-        currentPlayer.removeLastShot()
+    private fun removeCurrentBreakAndPrecedingShot() {
+       breaks.removeLast()
+        currentPlayer = currentPlayer.opponent()!!
+        currentBreak.removeLastShot()
     }
 
     private fun switchPlayer() {
-        currentPlayer = currentPlayer.opponent()
-        currentPlayer.startNewBreak()
+        currentPlayer = currentPlayer.opponent()!!
+        breaks.add(Break(currentPlayer))
     }
 
-    private fun Player.opponent(): Player = when (this) {
+    private fun Player.opponent(): Player? = when (this) {
         playerOne -> playerTwo
         playerTwo -> playerOne
-        else -> Player()
+        else -> null
     }
 }
