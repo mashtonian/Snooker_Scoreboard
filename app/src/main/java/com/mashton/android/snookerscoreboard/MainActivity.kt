@@ -19,6 +19,22 @@ class MainActivity : AppCompatActivity() {
         playerTwoFrameScoreView = findViewById(R.id.playerTwoFrameScore)
         playerOneNameView = findViewById(R.id.playerOneName)
         playerTwoNameView = findViewById(R.id.playerTwoName)
+        
+        playerOneNameView.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+                currentFocus?.clearFocus()
+                return@OnKeyListener true
+            }
+            false
+        })
+
+        playerTwoNameView.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
+                currentFocus?.clearFocus()
+                return@OnKeyListener true
+            }
+            false
+        })
 
         updateUiElements()
     }
