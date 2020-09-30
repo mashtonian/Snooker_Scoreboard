@@ -27,7 +27,7 @@ object KeyPressShotMapper {
             KeyEvent.KEYCODE_2, KeyEvent.KEYCODE_NUMPAD_2 -> LegalShot.YELLOW
             KeyEvent.KEYCODE_3, KeyEvent.KEYCODE_NUMPAD_3 -> LegalShot.GREEN
             KeyEvent.KEYCODE_T, KeyEvent.KEYCODE_NUMPAD_ADD -> ControlShot.END_OF_TURN
-            KeyEvent.KEYCODE_E, KeyEvent.KEYCODE_NUMPAD_MULTIPLY -> ControlShot.END_OF_FRAME
+            KeyEvent.KEYCODE_E, KeyEvent.KEYCODE_EQUALS -> ControlShot.END_OF_FRAME
             KeyEvent.KEYCODE_DEL -> ControlShot.REMOVE_LAST_SHOT
 
             KeyEvent.KEYCODE_4, KeyEvent.KEYCODE_NUMPAD_4 -> {
