@@ -127,11 +127,36 @@ class FrameTests {
         assertEquals(1, breaks?.last()?.numberOfShots)
         assertEquals(LegalShot.RED, breaks?.last()?.lastShot)
     }
+    @Test fun canCorrectlyRemoveAFoulShot() {
+        val testFrame = startAFrame()
+        testFrame.playShots(arrayOf (
+            LegalShot.RED,
+            FoulShot.FOUL_FOUR,
+            ControlShot.REMOVE_LAST_SHOT
+        ))
+
+        val breaks = testFrame.getPrivateProperty<Frame, MutableList<Break>>("breaks")
+        assertEquals(1, breaks?.size)
+        assertEquals(1, breaks?.last()?.numberOfShots)
+        assertEquals(LegalShot.RED, breaks?.last()?.lastShot)
+    }
+    @Test fun canCorrectlyRemoveAPenaltyShot() {
+        val testFrame = startAFrame()
+        testFrame.playShots(arrayOf (
+            LegalShot.RED,
+            PenaltyShot.PENALTY_SEVEN,
+            ControlShot.REMOVE_LAST_SHOT
+        ))
+
+        val breaks = testFrame.getPrivateProperty<Frame, MutableList<Break>>("breaks")
+        assertEquals(1, breaks?.size)
+        assertEquals(1, breaks?.last()?.numberOfShots)
+        assertEquals(LegalShot.RED, breaks?.last()?.lastShot)
+    }
 
     private fun startAFrame(): Frame {
         return Frame(Player("foo"), Player("bar"))
     }
-
     private fun Frame.playShots(shots : Array<Shot>){
         for (shot in shots) this.playShot(shot)
     }
