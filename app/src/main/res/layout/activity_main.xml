@@ -98,5 +98,23 @@
         app:layout_constraintTop_toTopOf="@id/playerTwoName"
         tools:text="(1)" />
 
+    <Button
+        android:id="@+id/changePlayerOneNameButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="Change Name"
+        app:layout_constraintEnd_toStartOf="@id/playerOneName"
+        app:layout_constraintTop_toTopOf="@id/playerOneName" />
+
+    <Button
+        android:id="@+id/changePlayerTwoNameButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Change Name"
+        app:layout_constraintStart_toEndOf="@id/playerTwoName"
+        app:layout_constraintTop_toTopOf="@id/playerTwoName" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
