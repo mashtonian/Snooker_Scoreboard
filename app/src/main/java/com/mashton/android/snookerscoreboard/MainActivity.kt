@@ -3,7 +3,10 @@ package com.mashton.android.snookerscoreboard
 import android.graphics.Color
 import android.os.Bundle
 import android.view.KeyEvent
+import android.view.View
+import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 
 
@@ -38,6 +41,18 @@ class MainActivity : AppCompatActivity() {
         playerTwoNameView = findViewById(R.id.playerTwoName)
 
         updateUiElements()
+    }
+
+    fun showAlertDialog(view: View)
+    {val builder = AlertDialog.Builder(this)
+
+        with(builder)
+        {
+            setTitle("Change Pleyer's Name")
+            setMessage("Do IT!")
+            setPositiveButton("OK") { _, _ -> }
+            show()
+        }
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
