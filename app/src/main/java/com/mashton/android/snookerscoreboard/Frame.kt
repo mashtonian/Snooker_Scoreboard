@@ -4,38 +4,8 @@ class Frame(val playerOne: Player, val playerTwo: Player) {
 
     val players = listOf(playerOne, playerTwo)
     var winner :Player? = null
-
     var currentPlayer = playerOne
-
-    val nonCurrentPlayer
-        get() = currentPlayer.opponent()
-
-    fun scoreFor(player :Player): Int {
-        return breaks.filter {it.player == player} .sumBy {it.score}
-    }
-
     private val breaks: MutableList<Break> = mutableListOf(Break(currentPlayer))
-    private val currentBreak: Break
-        get() = breaks.last()
-
-    private val previousBreak: Break?
-        get() = breaks.getOrNull(breaks.lastIndex - 1)
-
-    private val frameStarted
-        get() = !(breaks.size == 1 && breaks.first().numberOfShots == 0 )
-
-    val shotTicker: String
-        get() = computeShotTicker()
-
-    private fun computeShotTicker(): String {
-        return breaks.joinToString(separator="")
-    }
-
-    fun finishFrame() {
-        if (scoreFor(playerOne) > scoreFor(playerTwo)) winner = playerOne
-        if (scoreFor(playerTwo) > scoreFor(playerOne)) winner = playerTwo
-    }
-
 
     fun playShot(shot: Shot) {
         when (shot ) {
@@ -69,23 +39,24 @@ class Frame(val playerOne: Player, val playerTwo: Player) {
     }
 
     private fun removeLastShot() {
-        if (frameStarted) {
-            if (currentBreak.numberOfShots == 0) {
-                removeCurrentBreakAndPrecedingShot()
-                return
-            }
+        if (this.started) {
+            when {
+                lastShotWasAFoul.or(lastShotWasAPenalty)  -> {
+                    removeCurrentBreakAndPrecedingShot()
+                    return
+                }
 
-            if (currentBreak.numberOfShots == 1 &&
-                currentBreak.lastShot is PenaltyShot &&
-                previousBreak?.lastShot is FoulShot)
-            {
-                removeCurrentBreakAndPrecedingShot()
-                return
+                lastShotWasLegal -> currentBreak.removeLastShot ()
             }
-
-            if (currentBreak.numberOfShots != 0) currentBreak.removeLastShot()
         }
     }
+
+    private val lastShotWasLegal get() = currentBreak.numberOfShots != 0
+
+    private val lastShotWasAPenalty get() = currentBreak.numberOfShots == 0
+
+    private val lastShotWasAFoul get() =
+        currentBreak.numberOfShots == 1 && currentBreak.lastShot is PenaltyShot && previousBreak?.lastShot is FoulShot
 
     private fun removeCurrentBreakAndPrecedingShot() {
        breaks.removeLast()
@@ -102,5 +73,35 @@ class Frame(val playerOne: Player, val playerTwo: Player) {
         playerOne -> playerTwo
         playerTwo -> playerOne
         else -> null
+    }
+
+    private val Player.score get() = breaks.filter {it.player == this} .sumBy {it.score}
+
+    val nonCurrentPlayer
+        get() = currentPlayer.opponent()
+
+    fun scoreFor(player :Player): Int {
+        return player.score
+    }
+
+    private val currentBreak: Break
+        get() = breaks.last()
+
+    private val previousBreak: Break?
+        get() = breaks.getOrNull(breaks.lastIndex - 1)
+
+    val started
+        get() = !(breaks.size == 1 && breaks.first().numberOfShots == 0 )
+
+    val shotTicker: String
+        get() = breaks.joinToString(separator="")
+
+    fun finishFrame() {
+        when {
+            playerOne.score > playerTwo.score -> winner = playerOne
+            playerTwo.score > playerOne.score -> winner = playerTwo
+
+            //TODO: Implement re-spotted black end to frame, when scores are tied
+        }
     }
 }

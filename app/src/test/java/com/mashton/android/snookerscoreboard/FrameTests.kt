@@ -101,6 +101,15 @@ class FrameTests {
 
         assertEquals("17.17.17.17.17.", testFrame.shotTicker)
     }
+    @Test fun frameStartedFalseBeforeShotsPlayed() {
+        val testFrame = startAFrame()
+        assertEquals(false, testFrame.started)
+    }
+    @Test fun frameStartedTrueAfterShotsPlayed() {
+        val testFrame = startAFrame()
+        testFrame.playShot(LegalShot.DOT)
+        assertEquals(true, testFrame.started)
+    }
 
     private fun startAFrame(): Frame {
         return Frame(Player("foo"), Player("bar"))

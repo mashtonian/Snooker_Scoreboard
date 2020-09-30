@@ -41,24 +41,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAlignment="center"
+        android:layout_marginTop="16dp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/playerOneScore"
         app:layout_constraintStart_toEndOf="@+id/playerOneScore"
-        app:layout_constraintTop_toBottomOf="@+id/playerOneScore"
+        app:layout_constraintTop_toBottomOf="@+id/playerOneName"
         tools:text="Shot Ticker" />
 
-    <EditText
+    <TextView
         android:id="@+id/playerOneName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="5dp"
-        android:editable="false"
         android:text="Player One"
-        app:layout_constraintBottom_toTopOf="@+id/playerOneScore"
+        android:textSize="30sp"
+        app:layout_constraintTop_toBottomOf="@+id/playerOneScore"
         app:layout_constraintEnd_toEndOf="@+id/playerOneScore"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/playerOneScore"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/playerOneScore" />
 
     <TextView
         android:id="@+id/playerOneFrameScore"
@@ -66,24 +67,24 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:gravity="center_vertical"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="@id/playerOneName"
         app:layout_constraintStart_toEndOf="@id/playerOneName"
         app:layout_constraintTop_toTopOf="@id/playerOneName"
         tools:text="(1)" />
 
-    <EditText
+    <TextView
         android:id="@+id/playerTwoName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="5dp"
-        android:editable="false"
         android:text="Player Two"
-        app:layout_constraintBottom_toTopOf="@+id/playerTwoScore"
+        android:textSize="30sp"
+        app:layout_constraintTop_toBottomOf="@+id/playerTwoScore"
         app:layout_constraintEnd_toEndOf="@+id/playerTwoScore"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/playerOneScore"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/playerOneScore"/>
 
     <TextView
         android:id="@+id/playerTwoFrameScore"
@@ -91,6 +92,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:gravity="center_vertical"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="@id/playerTwoName"
         app:layout_constraintEnd_toStartOf="@id/playerTwoName"
         app:layout_constraintTop_toTopOf="@id/playerTwoName"
