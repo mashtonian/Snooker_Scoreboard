@@ -4,10 +4,13 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -48,7 +51,7 @@ class MainActivity : AppCompatActivity() {
 
         with(builder)
         {
-            setTitle("Change Pleyer's Name")
+            setTitle("Change Player's Name")
             setMessage("Do IT!")
             setPositiveButton("OK") { _, _ -> }
             show()
@@ -77,6 +80,9 @@ class MainActivity : AppCompatActivity() {
 
         match.currentFrame.currentPlayer.scoreView?.setTextColor(Color.RED)
         match.currentFrame.nonCurrentPlayer?.scoreView?.setTextColor(Color.DKGRAY)
+
+        if (match.started) changePlayerNamesButton.visibility = INVISIBLE
+        else changePlayerNamesButton.visibility = VISIBLE
     }
 
     private val Player.scoreView: TextView?
