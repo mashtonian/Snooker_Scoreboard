@@ -1,6 +1,6 @@
 package com.mashton.android.snookerscoreboard
+import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.junit.Assert.*
 
 class FrameTests {
 
@@ -110,6 +110,23 @@ class FrameTests {
         testFrame.playShot(LegalShot.DOT)
         assertEquals(true, testFrame.started)
     }
+    @Test fun removeAShotDoesNothingWhenNoShotsHaveBeenPlayed() {
+        val testFrame = startAFrame()
+        testFrame.playShot(ControlShot.REMOVE_LAST_SHOT)
+    }
+    @Test fun canCorrectlyRemoveAScoringShot() {
+        val testFrame = startAFrame()
+        testFrame.playShots(arrayOf (
+            LegalShot.RED,
+            LegalShot.BROWN,
+            ControlShot.REMOVE_LAST_SHOT
+        ))
+
+        val breaks = testFrame.getPrivateProperty<Frame, MutableList<Break>>("breaks")
+        assertEquals(1, breaks?.size)
+        assertEquals(1, breaks?.last()?.numberOfShots)
+        assertEquals(LegalShot.RED, breaks?.last()?.lastShot)
+    }
 
     private fun startAFrame(): Frame {
         return Frame(Player("foo"), Player("bar"))
@@ -119,3 +136,4 @@ class FrameTests {
         for (shot in shots) this.playShot(shot)
     }
 }
+
