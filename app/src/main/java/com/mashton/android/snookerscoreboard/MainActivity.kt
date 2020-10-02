@@ -23,16 +23,6 @@ class MainActivity : AppCompatActivity() {
         Player("Player Two")
     )
 
-
-    private lateinit var scoreTicker: TextView
-    private lateinit var playerOneFrameScoreView: TextView
-    private lateinit var playerTwoFrameScoreView: TextView
-    private lateinit var playerOneScoreView: TextView
-    private lateinit var playerTwoScoreView: TextView
-
-    private lateinit var playerOneNameView: TextView
-    private lateinit var playerTwoNameView: TextView
-
     private lateinit var playerOneNameEditText: EditText
     private lateinit var playerTwoNameEditText: EditText
 
