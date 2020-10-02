@@ -1,5 +1,7 @@
 package com.mashton.android.snookerscoreboard
 
+import androidx.databinding.Bindable
+
 class Frame(val playerOne: Player, val playerTwo: Player) {
 
     val players = listOf(playerOne, playerTwo)
@@ -83,6 +85,9 @@ class Frame(val playerOne: Player, val playerTwo: Player) {
     fun scoreFor(player :Player): Int {
         return player.score
     }
+
+    val playerOneScore get() = scoreFor(playerOne).toString()
+    val playerTwoScore get() = scoreFor(playerTwo).toString()
 
     private val currentBreak: Break
         get() = breaks.last()

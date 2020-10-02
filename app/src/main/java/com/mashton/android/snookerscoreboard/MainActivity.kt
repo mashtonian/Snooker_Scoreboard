@@ -31,6 +31,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.match = match
+        binding.currentFrame = match.currentFrame
 
         updateUiElements()
     }
@@ -56,7 +58,7 @@ class MainActivity : AppCompatActivity() {
             setMessage("Do IT!")
             setPositiveButton("OK") { _, _ ->
                 for (player in match.players) player.name = player.nameEditText?.text.toString()
-                displayPlayerNames()
+                binding.invalidateAll()
             }
             show()
         }
@@ -75,22 +77,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateUiElements() {
-        displayShotTicker()
-        displayScores()
-        displayPlayerNames()
+        binding.currentFrame = match.currentFrame
         setColourOfScores()
         setVisibilityOfChangeNamesButton()
-    }
-
-    private fun displayShotTicker() {
-        binding.scoreTicker.text = match.currentFrame.shotTicker
-    }
-
-    private fun displayScores() {
-        for (player in match.players) {
-            player.scoreView?.text = match.currentFrame.scoreFor(player).toString()
-            player.frameScoreView?.text = getString(R.string.frameScoreTemplate, player.frameScore)
-        }
+        binding.invalidateAll()
     }
 
     private fun setColourOfScores() {
@@ -103,38 +93,11 @@ class MainActivity : AppCompatActivity() {
         else binding.changePlayerNamesButton.visibility = VISIBLE
     }
 
-    private fun displayPlayerNames() {
-        for (player in match.players) {
-            player.nameView?.text = player.name
-        }
-    }
-
     //TODO refactor out the player selection code into a reusable form
     private val Player.scoreView: TextView?
         get() = when (this) {
             match.playerOne -> binding.playerOneScore
             match.playerTwo -> binding.playerTwoScore
-            else -> null
-        }
-
-    private val Player.frameScoreView: TextView?
-        get() = when (this) {
-            match.playerOne -> binding.playerOneFrameScore
-            match.playerTwo -> binding.playerTwoFrameScore
-            else -> null
-        }
-
-    private val Player.nameView: TextView?
-        get() = when (this) {
-            match.playerOne -> binding.playerOneName
-            match.playerTwo -> binding.playerTwoName
-            else -> null
-        }
-
-    private val Player.frameScore: Int?
-        get() = when (this) {
-            match.playerOne -> match.playerOneFrameScore
-            match.playerTwo -> match.playerTwoFrameScore
             else -> null
         }
 
