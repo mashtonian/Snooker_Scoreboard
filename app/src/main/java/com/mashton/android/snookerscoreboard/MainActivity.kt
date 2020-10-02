@@ -10,6 +10,8 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import com.mashton.android.snookerscoreboard.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.player_name_change_dialog.*
 
@@ -34,19 +36,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var playerOneNameEditText: EditText
     private lateinit var playerTwoNameEditText: EditText
 
+    private lateinit var binding :ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        scoreTicker = findViewById(R.id.scoreTicker)
-
-        playerOneScoreView = findViewById(R.id.playerOneScore)
-        playerTwoScoreView = findViewById(R.id.playerTwoScore)
-        playerOneFrameScoreView = findViewById(R.id.playerOneFrameScore)
-        playerTwoFrameScoreView = findViewById(R.id.playerTwoFrameScore)
-
-        playerOneNameView = findViewById(R.id.playerOneName)
-        playerTwoNameView = findViewById(R.id.playerTwoName)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         updateUiElements()
     }
@@ -99,7 +93,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun displayShotTicker() {
-        scoreTicker.text = match.currentFrame.shotTicker
+        binding.scoreTicker.text = match.currentFrame.shotTicker
     }
 
     private fun displayScores() {
@@ -115,8 +109,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setVisibilityOfChangeNamesButton() {
-        if (match.started) changePlayerNamesButton.visibility = INVISIBLE
-        else changePlayerNamesButton.visibility = VISIBLE
+        if (match.started) binding.changePlayerNamesButton.visibility = INVISIBLE
+        else binding.changePlayerNamesButton.visibility = VISIBLE
     }
 
     private fun displayPlayerNames() {
@@ -128,22 +122,22 @@ class MainActivity : AppCompatActivity() {
     //TODO refactor out the player selection code into a reusable form
     private val Player.scoreView: TextView?
         get() = when (this) {
-            match.playerOne -> playerOneScoreView
-            match.playerTwo -> playerTwoScoreView
+            match.playerOne -> binding.playerOneScore
+            match.playerTwo -> binding.playerTwoScore
             else -> null
         }
 
     private val Player.frameScoreView: TextView?
         get() = when (this) {
-            match.playerOne -> playerOneFrameScoreView
-            match.playerTwo -> playerTwoFrameScoreView
+            match.playerOne -> binding.playerOneFrameScore
+            match.playerTwo -> binding.playerTwoFrameScore
             else -> null
         }
 
     private val Player.nameView: TextView?
         get() = when (this) {
-            match.playerOne -> playerOneNameView
-            match.playerTwo -> playerTwoNameView
+            match.playerOne -> binding.playerOneName
+            match.playerTwo -> binding.playerTwoName
             else -> null
         }
 

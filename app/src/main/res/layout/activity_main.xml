@@ -1,111 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout2"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="match"
+            type="com.mashton.android.snookerscoreboard.Match" />
 
-    <TextView
-        android:id="@+id/playerOneScore"
-        android:layout_width="0dp"
+        <variable
+            name="currentFrame"
+            type="com.mashton.android.snookerscoreboard.Frame" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="0"
-        android:textAlignment="center"
-        android:textColor="#F44336"
-        android:textSize="120sp"
-        app:layout_constraintEnd_toStartOf="@+id/playerTwoScore"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="0" />
-
-    <TextView
-        android:id="@+id/playerTwoScore"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="0"
-        android:textAlignment="center"
-        android:textSize="120sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/playerOneScore"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="0" />
+        tools:context=".MainActivity">
 
 
-    <TextView
-        android:id="@+id/scoreTicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:layout_marginTop="16dp"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/playerOneScore"
-        app:layout_constraintStart_toEndOf="@+id/playerOneScore"
-        app:layout_constraintTop_toBottomOf="@+id/playerOneName"
-        tools:text="Shot Ticker" />
+        <TextView
+            android:id="@+id/playerOneScore"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="0"
+            android:textAlignment="center"
+            android:textColor="#F44336"
+            android:textSize="120sp"
+            app:layout_constraintEnd_toStartOf="@+id/playerTwoScore"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="0" />
 
-    <TextView
-        android:id="@+id/playerOneName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="5dp"
-        android:text="Player One"
-        android:textSize="30sp"
-        app:layout_constraintTop_toBottomOf="@+id/playerOneScore"
-        app:layout_constraintEnd_toEndOf="@+id/playerOneScore"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/playerOneScore" />
+        <TextView
+            android:id="@+id/playerTwoScore"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="0"
+            android:textAlignment="center"
+            android:textSize="120sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/playerOneScore"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="0" />
 
-    <TextView
-        android:id="@+id/playerOneFrameScore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:gravity="center_vertical"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="@id/playerOneName"
-        app:layout_constraintStart_toEndOf="@id/playerOneName"
-        app:layout_constraintTop_toTopOf="@id/playerOneName"
-        tools:text="(1)" />
 
-    <TextView
-        android:id="@+id/playerTwoName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="5dp"
-        android:text="Player Two"
-        android:textSize="30sp"
-        app:layout_constraintTop_toBottomOf="@+id/playerTwoScore"
-        app:layout_constraintEnd_toEndOf="@+id/playerTwoScore"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/playerOneScore"/>
+        <TextView
+            android:id="@+id/scoreTicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:layout_marginTop="16dp"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/playerOneScore"
+            app:layout_constraintStart_toEndOf="@+id/playerOneScore"
+            app:layout_constraintTop_toBottomOf="@+id/playerOneName"
+            tools:text="Shot Ticker" />
 
-    <TextView
-        android:id="@+id/playerTwoFrameScore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:gravity="center_vertical"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="@id/playerTwoName"
-        app:layout_constraintEnd_toStartOf="@id/playerTwoName"
-        app:layout_constraintTop_toTopOf="@id/playerTwoName"
-        tools:text="(1)" />
+        <TextView
+            android:id="@+id/playerOneName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="5dp"
+            android:text="Player One"
+            android:textSize="30sp"
+            app:layout_constraintTop_toBottomOf="@+id/playerOneScore"
+            app:layout_constraintEnd_toEndOf="@+id/playerOneScore"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/playerOneScore" />
 
-    <Button
-        android:id="@+id/changePlayerNamesButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Change Names"
-        android:onClick="showAlertDialog"
-        app:layout_constraintTop_toTopOf="@id/playerOneName"
-        app:layout_constraintStart_toStartOf="@id/scoreTicker"
-        app:layout_constraintEnd_toEndOf="@id/scoreTicker"/>
+        <TextView
+            android:id="@+id/playerOneFrameScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:gravity="center_vertical"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="@id/playerOneName"
+            app:layout_constraintStart_toEndOf="@id/playerOneName"
+            app:layout_constraintTop_toTopOf="@id/playerOneName"
+            tools:text="(1)" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/playerTwoName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="5dp"
+            android:text="Player Two"
+            android:textSize="30sp"
+            app:layout_constraintTop_toBottomOf="@+id/playerTwoScore"
+            app:layout_constraintEnd_toEndOf="@+id/playerTwoScore"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/playerOneScore" />
+
+        <TextView
+            android:id="@+id/playerTwoFrameScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:gravity="center_vertical"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="@id/playerTwoName"
+            app:layout_constraintEnd_toStartOf="@id/playerTwoName"
+            app:layout_constraintTop_toTopOf="@id/playerTwoName"
+            tools:text="(1)" />
+
+        <Button
+            android:id="@+id/changePlayerNamesButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Change Names"
+            android:onClick="showAlertDialog"
+            app:layout_constraintTop_toTopOf="@id/playerOneName"
+            app:layout_constraintStart_toStartOf="@id/scoreTicker"
+            app:layout_constraintEnd_toEndOf="@id/scoreTicker" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
