@@ -30,8 +30,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        binding.match = viewModel.match.value
-        binding.currentFrame = viewModel.match.value?.currentFrame
+        binding.match = viewModel.match
+        binding.currentFrame = viewModel.match.currentFrame
+
+        viewModel.shotTicker.observe(this, { newTicker -> binding.scoreTicker.text = newTicker })
+        viewModel.playerOneScore.observe(this, {newScore -> binding.playerOneScore.text = newScore.toString()})
+        viewModel.playerTwoScore.observe(this, {newScore -> binding.playerTwoScore.text = newScore.toString()})
 
         updateUiElements()
     }
@@ -46,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         playerOneNameEditText = dialogLayout.findViewById<EditText>(R.id.playerOneNameEditText)
         playerTwoNameEditText = dialogLayout.findViewById<EditText>(R.id.playerTwoNameEditText)
 
-        for (player in viewModel.match.value?.players!!) {
+        for (player in viewModel.match.players) {
             player.nameEditText?.setText(player.name)
         }
 
@@ -56,7 +60,7 @@ class MainActivity : AppCompatActivity() {
             setView(dialogLayout)
             setMessage("Do IT!")
             setPositiveButton("OK") { _, _ ->
-                for (player in viewModel.match.value?.players!!) player.name = player.nameEditText?.text.toString()
+                for (player in viewModel.match.players) player.name = player.nameEditText?.text.toString()
                 binding.invalidateAll()
             }
             show()
@@ -64,46 +68,42 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
-        val mappingResult = KeyPressShotMapper.map(keyCode)
-        mappingResult.shot?.play()
-        if (!mappingResult.handled) super.onKeyDown(keyCode, event)
+        if (!viewModel.processKeyPress(keyCode)) super.onKeyDown(keyCode, event)
+        updateUiElements()
         return true
     }
 
-    private fun Shot.play() {
-        viewModel.match.value?.playShot(this)
-        updateUiElements()
-    }
+
 
     private fun updateUiElements() {
-        binding.currentFrame = viewModel.match.value?.currentFrame
+        binding.currentFrame = viewModel.match.currentFrame
         setColourOfScores()
         setVisibilityOfChangeNamesButton()
         binding.invalidateAll()
     }
 
     private fun setColourOfScores() {
-        viewModel.match.value?.currentFrame?.currentPlayer?.scoreView?.setTextColor(Color.RED)
-        viewModel.match.value?.currentFrame?.nonCurrentPlayer?.scoreView?.setTextColor(Color.DKGRAY)
+        viewModel.match.currentFrame.currentPlayer.scoreView?.setTextColor(Color.RED)
+        viewModel.match.currentFrame.nonCurrentPlayer?.scoreView?.setTextColor(Color.DKGRAY)
     }
 
     private fun setVisibilityOfChangeNamesButton() {
-        if (viewModel.match.value?.started!!) binding.changePlayerNamesButton.visibility = INVISIBLE
+        if (viewModel.match.started) binding.changePlayerNamesButton.visibility = INVISIBLE
         else binding.changePlayerNamesButton.visibility = VISIBLE
     }
 
     //TODO refactor out the player selection code into a reusable form
     private val Player.scoreView: TextView?
         get() = when (this) {
-            viewModel.match.value?.playerOne -> binding.playerOneScore
-            viewModel.match.value?.playerTwo -> binding.playerTwoScore
+            viewModel.match.playerOne -> binding.playerOneScore
+            viewModel.match.playerTwo -> binding.playerTwoScore
             else -> null
         }
 
     private val Player.nameEditText: EditText?
         get() = when (this) {
-            viewModel.match.value?.playerOne -> playerOneNameEditText
-            viewModel.match.value?.playerTwo -> playerTwoNameEditText
+            viewModel.match.playerOne -> playerOneNameEditText
+            viewModel.match.playerTwo -> playerTwoNameEditText
             else -> null
         }
 }
