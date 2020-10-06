@@ -117,7 +117,7 @@
             android:id="@+id/changePlayerNamesButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Change Names"
+            android:text="@string/change_names"
             android:onClick="showAlertDialog"
             app:layout_constraintTop_toTopOf="@id/playerOneName"
             app:layout_constraintStart_toStartOf="@id/scoreTicker"

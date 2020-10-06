@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Snooker Scoreboard</string>
     <string name="frameScoreTemplate">(%1$d)</string>
+    <string name="change_names">Change Names</string>
+    <string name="PlayerOneName">Player One</string>
+    <string name="PlayerTwoName">Player Two</string>
 </resources>

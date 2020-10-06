@@ -1,7 +1,9 @@
 package com.mashton.android.snookerscoreboard
 
-class Match(val playerOne: Player, val playerTwo: Player){
+class Match(playerOneName :String, playerTwoName :String){
 
+    val playerOne = Player(playerOneName)
+    val playerTwo = Player(playerTwoName)
     val players = listOf(playerOne, playerTwo)
     private val frames: MutableList<Frame> = mutableListOf(Frame(playerOne, playerTwo))
     val currentFrame: Frame

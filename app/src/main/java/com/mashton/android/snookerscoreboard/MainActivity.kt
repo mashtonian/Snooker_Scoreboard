@@ -8,31 +8,30 @@ import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.widget.EditText
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.mashton.android.snookerscoreboard.databinding.ActivityMainBinding
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.player_name_change_dialog.*
 
 
 class MainActivity : AppCompatActivity() {
-
-    private val match = Match(
-        Player("Player One"),
-        Player("Player Two")
-    )
 
     private lateinit var playerOneNameEditText: EditText
     private lateinit var playerTwoNameEditText: EditText
 
     private lateinit var binding :ActivityMainBinding
+    private val viewModel: MatchViewModel
+            by viewModels {MatchViewModelFactory(
+                getString(R.string.PlayerOneName),
+                getString(R.string.PlayerTwoName))}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.match = match
-        binding.currentFrame = match.currentFrame
+
+        binding.match = viewModel.match.value
+        binding.currentFrame = viewModel.match.value?.currentFrame
 
         updateUiElements()
     }
@@ -47,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         playerOneNameEditText = dialogLayout.findViewById<EditText>(R.id.playerOneNameEditText)
         playerTwoNameEditText = dialogLayout.findViewById<EditText>(R.id.playerTwoNameEditText)
 
-        for (player in match.players) {
+        for (player in viewModel.match.value?.players!!) {
             player.nameEditText?.setText(player.name)
         }
 
@@ -57,7 +56,7 @@ class MainActivity : AppCompatActivity() {
             setView(dialogLayout)
             setMessage("Do IT!")
             setPositiveButton("OK") { _, _ ->
-                for (player in match.players) player.name = player.nameEditText?.text.toString()
+                for (player in viewModel.match.value?.players!!) player.name = player.nameEditText?.text.toString()
                 binding.invalidateAll()
             }
             show()
@@ -72,39 +71,39 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun Shot.play() {
-        match.playShot(this)
+        viewModel.match.value?.playShot(this)
         updateUiElements()
     }
 
     private fun updateUiElements() {
-        binding.currentFrame = match.currentFrame
+        binding.currentFrame = viewModel.match.value?.currentFrame
         setColourOfScores()
         setVisibilityOfChangeNamesButton()
         binding.invalidateAll()
     }
 
     private fun setColourOfScores() {
-        match.currentFrame.currentPlayer.scoreView?.setTextColor(Color.RED)
-        match.currentFrame.nonCurrentPlayer?.scoreView?.setTextColor(Color.DKGRAY)
+        viewModel.match.value?.currentFrame?.currentPlayer?.scoreView?.setTextColor(Color.RED)
+        viewModel.match.value?.currentFrame?.nonCurrentPlayer?.scoreView?.setTextColor(Color.DKGRAY)
     }
 
     private fun setVisibilityOfChangeNamesButton() {
-        if (match.started) binding.changePlayerNamesButton.visibility = INVISIBLE
+        if (viewModel.match.value?.started!!) binding.changePlayerNamesButton.visibility = INVISIBLE
         else binding.changePlayerNamesButton.visibility = VISIBLE
     }
 
     //TODO refactor out the player selection code into a reusable form
     private val Player.scoreView: TextView?
         get() = when (this) {
-            match.playerOne -> binding.playerOneScore
-            match.playerTwo -> binding.playerTwoScore
+            viewModel.match.value?.playerOne -> binding.playerOneScore
+            viewModel.match.value?.playerTwo -> binding.playerTwoScore
             else -> null
         }
 
     private val Player.nameEditText: EditText?
         get() = when (this) {
-            match.playerOne -> playerOneNameEditText
-            match.playerTwo -> playerTwoNameEditText
+            viewModel.match.value?.playerOne -> playerOneNameEditText
+            viewModel.match.value?.playerTwo -> playerTwoNameEditText
             else -> null
         }
 }
