@@ -18,10 +18,20 @@ class MatchViewModel(playerOneName :String, playerTwoName :String) : ViewModel()
     val playerTwoScore: LiveData<Int>
         get() = _playerTwoScore
 
+    private val _playerOneFrameScore = MutableLiveData<Int>()
+    val playerOneFrameScore: LiveData<Int>
+        get() = _playerOneFrameScore
+
+    private val _playerTwoFrameScore = MutableLiveData<Int>()
+    val playerTwoFrameScore: LiveData<Int>
+        get() = _playerTwoFrameScore
+
     init {
         _shotTicker.value = ""
         _playerOneScore.value = 0
         _playerTwoScore.value = 0
+        _playerOneFrameScore.value = 0
+        _playerTwoFrameScore.value = 0
     }
 
     fun processKeyPress(keyCode: Int) :Boolean {
@@ -32,9 +42,17 @@ class MatchViewModel(playerOneName :String, playerTwoName :String) : ViewModel()
 
     private fun Shot.play() {
         match.playShot(this)
-        _shotTicker.value = match.currentFrame.shotTicker
-        _playerOneScore.value = match.currentFrame.playerOneScore
-        _playerTwoScore.value = match.currentFrame.playerTwoScore
+        updateLiveDataFields()
+    }
+
+    private fun updateLiveDataFields() {
+        match.apply {
+            _shotTicker.value = currentFrame.shotTicker
+            _playerOneScore.value = currentFrame.scoreFor(playerOne)
+            _playerTwoScore.value = currentFrame.scoreFor(playerTwo)
+            _playerOneFrameScore.value = playerOneFrameScore
+            _playerTwoFrameScore.value = playerTwoFrameScore
+        }
     }
 
     val match = Match(playerOneName, playerTwoName)

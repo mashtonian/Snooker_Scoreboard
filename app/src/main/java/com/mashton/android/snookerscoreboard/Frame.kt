@@ -84,9 +84,6 @@ class Frame(val playerOne: Player, val playerTwo: Player) {
         return player.score
     }
 
-    val playerOneScore get() = scoreFor(playerOne)
-    val playerTwoScore get() = scoreFor(playerTwo)
-
     private val currentBreak: Break
         get() = breaks.last()
 

@@ -7,11 +7,6 @@
         <variable
             name="match"
             type="com.mashton.android.snookerscoreboard.Match" />
-
-        <variable
-            name="currentFrame"
-            type="com.mashton.android.snookerscoreboard.Frame" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -78,7 +73,6 @@
             android:layout_marginStart="8dp"
             android:gravity="center_vertical"
             android:textSize="30sp"
-            android:text="@{@string/frameScoreTemplate(match.playerOneFrameScore)}"
             app:layout_constraintBottom_toBottomOf="@id/playerOneName"
             app:layout_constraintStart_toEndOf="@id/playerOneName"
             app:layout_constraintTop_toTopOf="@id/playerOneName"
@@ -104,7 +98,6 @@
             android:layout_marginEnd="8dp"
             android:gravity="center_vertical"
             android:textSize="30sp"
-            android:text="@{@string/frameScoreTemplate(match.playerTwoFrameScore)}"
             app:layout_constraintBottom_toBottomOf="@id/playerTwoName"
             app:layout_constraintEnd_toStartOf="@id/playerTwoName"
             app:layout_constraintTop_toTopOf="@id/playerTwoName"

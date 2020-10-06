@@ -31,11 +31,16 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         binding.match = viewModel.match
-        binding.currentFrame = viewModel.match.currentFrame
 
         viewModel.shotTicker.observe(this, { newTicker -> binding.scoreTicker.text = newTicker })
+
         viewModel.playerOneScore.observe(this, {newScore -> binding.playerOneScore.text = newScore.toString()})
         viewModel.playerTwoScore.observe(this, {newScore -> binding.playerTwoScore.text = newScore.toString()})
+
+        viewModel.playerOneFrameScore.observe(this, { newScore ->
+            binding.playerOneFrameScore.text = String.format(getString(R.string.frameScoreTemplate), newScore)})
+        viewModel.playerTwoFrameScore.observe(this, { newScore ->
+            binding.playerTwoFrameScore.text = String.format(getString(R.string.frameScoreTemplate), newScore)})
 
         updateUiElements()
     }
@@ -73,10 +78,7 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-
-
     private fun updateUiElements() {
-        binding.currentFrame = viewModel.match.currentFrame
         setColourOfScores()
         setVisibilityOfChangeNamesButton()
         binding.invalidateAll()
