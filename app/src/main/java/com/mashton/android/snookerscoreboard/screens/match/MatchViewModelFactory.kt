@@ -1,4 +1,4 @@
-package com.mashton.android.snookerscoreboard
+package com.mashton.android.snookerscoreboard.screens.match
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

@@ -1,4 +1,4 @@
-package com.mashton.android.snookerscoreboard
+package com.mashton.android.snookerscoreboard.screens.match
 
 import android.graphics.Color
 import android.view.View.INVISIBLE
@@ -43,7 +43,7 @@ class MatchViewModel(playerOneName :String, playerTwoName :String) : ViewModel()
     val playerTwoScoreColour = colourFor(match.playerTwo)
 
 
-    private fun colourFor (player :Player): LiveData<Int> {
+    private fun colourFor (player : Player): LiveData<Int> {
         return Transformations.map(_currentPlayer) { currentPlayer ->
             if (currentPlayer == player) Color.RED else Color.DKGRAY }
     }
@@ -52,10 +52,9 @@ class MatchViewModel(playerOneName :String, playerTwoName :String) : ViewModel()
        updateLiveDataFields()
     }
 
-    fun processKeyPress(keyCode: Int) :Boolean {
+    fun processKeyPress(keyCode: Int)  {
         val mappingResult = KeyPressShotMapper.map(keyCode)
         mappingResult.shot?.play()
-        return mappingResult.handled
     }
 
     private fun Shot.play() {

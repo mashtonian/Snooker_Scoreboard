@@ -1,6 +1,6 @@
-package com.mashton.android.snookerscoreboard
+package com.mashton.android.snookerscoreboard.screens.match
 
-class Break(val player :Player) {
+class Break(val player : Player) {
     private val shots: MutableList<Shot> = mutableListOf()
 
     val score: Int
@@ -16,7 +16,7 @@ class Break(val player :Player) {
 
     fun removeLastShot() {shots.removeLast()}
 
-    fun addPenaltyPoints(shot :Shot){
+    fun addPenaltyPoints(shot : Shot){
         shots.add(
             when (shot) {
                 FoulShot.FOUL_FOUR -> PenaltyShot.PENALTY_FOUR

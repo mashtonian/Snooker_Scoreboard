@@ -1,9 +1,9 @@
-package com.mashton.android.snookerscoreboard
+package com.mashton.android.snookerscoreboard.screens.match
 
 class Frame(val playerOne: Player, val playerTwo: Player) {
 
     val players = listOf(playerOne, playerTwo)
-    var winner :Player? = null
+    var winner : Player? = null
     var currentPlayer = playerOne
     private val breaks: MutableList<Break> = mutableListOf(Break(currentPlayer))
 
@@ -80,7 +80,7 @@ class Frame(val playerOne: Player, val playerTwo: Player) {
     val nonCurrentPlayer
         get() = currentPlayer.opponent()
 
-    fun scoreFor(player :Player): Int {
+    fun scoreFor(player : Player): Int {
         return player.score
     }
 

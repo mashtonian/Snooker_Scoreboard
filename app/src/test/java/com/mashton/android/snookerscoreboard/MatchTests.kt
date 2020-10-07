@@ -1,6 +1,8 @@
 package com.mashton.android.snookerscoreboard
+import com.mashton.android.snookerscoreboard.screens.match.LegalShot
+import com.mashton.android.snookerscoreboard.screens.match.Match
+import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.junit.Assert.*
 
 class MatchTests {
 
@@ -15,6 +17,6 @@ class MatchTests {
     }
 
     private fun startAMatch(): Match {
-        return Match(Player("foo"), Player("bar"))
+        return Match("foo", "bar")
     }
 }

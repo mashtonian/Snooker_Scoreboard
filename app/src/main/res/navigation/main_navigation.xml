@@ -14,19 +14,16 @@
   ~ limitations under the License.
   -->
 
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    app:startDestination="@id/match_destination">
 
     <fragment
-        android:id="@+id/nav_host_fragment"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/main_navigation" />
-</merge>
+        android:id="@+id/match_destination"
+        android:name="com.mashton.android.snookerscoreboard.screens.match.MatchFragment"
+        android:label="game_fragment"
+        tools:layout="@layout/fragment_match">
+    </fragment>
+
+</navigation>

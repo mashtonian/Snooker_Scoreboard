@@ -1,4 +1,4 @@
-package com.mashton.android.snookerscoreboard
+package com.mashton.android.snookerscoreboard.screens.match
 
 class Match(playerOneName :String, playerTwoName :String){
 
@@ -18,7 +18,7 @@ class Match(playerOneName :String, playerTwoName :String){
     val playerTwoFrameScore: Int
         get() = frameScoreFor(playerTwo)
 
-    private fun frameScoreFor(player :Player) =
+    private fun frameScoreFor(player : Player) =
         frames.mapNotNull { it.winner }.filter {it == player}.count()
 
     fun playShot(shot: Shot) {

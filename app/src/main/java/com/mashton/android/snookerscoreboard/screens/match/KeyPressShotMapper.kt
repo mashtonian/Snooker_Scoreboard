@@ -1,8 +1,8 @@
-package com.mashton.android.snookerscoreboard
+package com.mashton.android.snookerscoreboard.screens.match
 
 import android.view.KeyEvent
 
-data class KeyMapperResult(var shot :Shot?, var handled :Boolean)
+data class KeyMapperResult(var shot : Shot?, var handled :Boolean)
 
 object KeyPressShotMapper {
 
@@ -21,7 +21,7 @@ object KeyPressShotMapper {
         pPressedForPenalty = false
 
         var handled = true
-        val shot :Shot? = when (keyCode) {
+        val shot : Shot? = when (keyCode) {
             KeyEvent.KEYCODE_PERIOD, KeyEvent.KEYCODE_NUMPAD_DOT -> LegalShot.DOT
             KeyEvent.KEYCODE_1, KeyEvent.KEYCODE_NUMPAD_1 -> LegalShot.RED
             KeyEvent.KEYCODE_2, KeyEvent.KEYCODE_NUMPAD_2 -> LegalShot.YELLOW
@@ -34,25 +34,29 @@ object KeyPressShotMapper {
                 when {
                     foul -> FoulShot.FOUL_FOUR
                     penalty -> PenaltyShot.PENALTY_FOUR
-                    else -> LegalShot.BROWN } }
+                    else -> LegalShot.BROWN
+                } }
 
             KeyEvent.KEYCODE_5, KeyEvent.KEYCODE_NUMPAD_5 -> {
                 when {
                     foul -> FoulShot.FOUL_FIVE
                     penalty -> PenaltyShot.PENALTY_FIVE
-                    else -> LegalShot.BLUE } }
+                    else -> LegalShot.BLUE
+                } }
 
             KeyEvent.KEYCODE_6, KeyEvent.KEYCODE_NUMPAD_6 -> {
                 when {
                     foul -> FoulShot.FOUL_SIX
                     penalty -> PenaltyShot.PENALTY_SIX
-                    else -> LegalShot.PINK } }
+                    else -> LegalShot.PINK
+                } }
 
             KeyEvent.KEYCODE_7, KeyEvent.KEYCODE_NUMPAD_7 -> {
                 when {
                     foul -> FoulShot.FOUL_SEVEN
                     penalty -> PenaltyShot.PENALTY_SEVEN
-                    else -> LegalShot.BLACK } }
+                    else -> LegalShot.BLACK
+                } }
 
             KeyEvent.KEYCODE_F, KeyEvent.KEYCODE_NUMPAD_MULTIPLY -> {
                 fPressedForFoul = true
