@@ -1,10 +1,16 @@
 package com.mashton.android.snookerscoreboard
 
+import android.graphics.Color
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 
 class MatchViewModel(playerOneName :String, playerTwoName :String) : ViewModel() {
+
+    val match = Match(playerOneName, playerTwoName)
 
     private val _shotTicker = MutableLiveData<String>()
     val shotTicker: LiveData<String>
@@ -26,12 +32,24 @@ class MatchViewModel(playerOneName :String, playerTwoName :String) : ViewModel()
     val playerTwoFrameScore: LiveData<Int>
         get() = _playerTwoFrameScore
 
+    private val _matchStarted = MutableLiveData<Boolean>()
+
+    private val _currentPlayer = MutableLiveData<Player>()
+
+    val matchStartedVisibility: LiveData<Int> = Transformations.map(_matchStarted) { started ->
+        if (started) INVISIBLE else VISIBLE }
+
+    val playerOneScoreColour = colourFor(match.playerOne)
+    val playerTwoScoreColour = colourFor(match.playerTwo)
+
+
+    private fun colourFor (player :Player): LiveData<Int> {
+        return Transformations.map(_currentPlayer) { currentPlayer ->
+            if (currentPlayer == player) Color.RED else Color.DKGRAY }
+    }
+
     init {
-        _shotTicker.value = ""
-        _playerOneScore.value = 0
-        _playerTwoScore.value = 0
-        _playerOneFrameScore.value = 0
-        _playerTwoFrameScore.value = 0
+       updateLiveDataFields()
     }
 
     fun processKeyPress(keyCode: Int) :Boolean {
@@ -52,8 +70,8 @@ class MatchViewModel(playerOneName :String, playerTwoName :String) : ViewModel()
             _playerTwoScore.value = currentFrame.scoreFor(playerTwo)
             _playerOneFrameScore.value = playerOneFrameScore
             _playerTwoFrameScore.value = playerTwoFrameScore
+            _matchStarted.value = started
+            _currentPlayer.value = match.currentFrame.currentPlayer
         }
     }
-
-    val match = Match(playerOneName, playerTwoName)
 }
