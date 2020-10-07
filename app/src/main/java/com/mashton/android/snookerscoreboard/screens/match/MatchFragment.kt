@@ -11,7 +11,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.mashton.android.snookerscoreboard.Event
 import com.mashton.android.snookerscoreboard.R
-import com.mashton.android.snookerscoreboard.databinding.FragmentMatchBinding
+import com.mashton.android.snookerscoreboard.databinding.MatchFragmentBinding
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
@@ -21,7 +21,7 @@ class MatchFragment : Fragment() {
     private lateinit var playerOneNameEditText: EditText
     private lateinit var playerTwoNameEditText: EditText
 
-    private lateinit var binding :FragmentMatchBinding
+    private lateinit var binding :MatchFragmentBinding
     private val viewModel: MatchViewModel
             by viewModels {
                 MatchViewModelFactory(
@@ -34,7 +34,7 @@ class MatchFragment : Fragment() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.fragment_match,
+            R.layout.match_fragment,
             container,
             false
         )
@@ -47,7 +47,6 @@ class MatchFragment : Fragment() {
             playerTwoScore.onChangeDo {newScore -> binding.playerTwoScore.text = newScore.toString() }
             playerOneScoreColour.onChangeDo {colour :Int -> binding.playerOneScore.setTextColor(colour) }
             playerTwoScoreColour.onChangeDo {colour :Int -> binding.playerTwoScore.setTextColor(colour) }
-            matchStartedVisibility.onChangeDo {visibility -> binding.changePlayerNamesButton.visibility = visibility }
             playerOneFrameScore.onChangeDo { newScore -> binding.playerOneFrameScore.text = newScore.formattedAsFrameScore() }
             playerTwoFrameScore.onChangeDo { newScore -> binding.playerTwoFrameScore.text = newScore.formattedAsFrameScore() }
         }

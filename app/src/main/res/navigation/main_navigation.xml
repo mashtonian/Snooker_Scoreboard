@@ -17,13 +17,22 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/match_destination">
+    app:startDestination="@id/names_destination">
 
     <fragment
         android:id="@+id/match_destination"
         android:name="com.mashton.android.snookerscoreboard.screens.match.MatchFragment"
         android:label="game_fragment"
-        tools:layout="@layout/fragment_match">
+        tools:layout="@layout/match_fragment">
+    </fragment>
+    <fragment
+        android:id="@+id/names_destination"
+        android:name="com.mashton.android.snookerscoreboard.screens.names.NamesFragment"
+        android:label="NamesFragment"
+        tools:layout="@layout/names_fragment">
+        <action
+            android:id="@+id/action_names_to_match"
+            app:destination="@id/match_destination" />
     </fragment>
 
 </navigation>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:context=".screens.match.MatchFragment">
@@ -96,14 +96,5 @@
             app:layout_constraintEnd_toStartOf="@id/playerTwoName"
             app:layout_constraintTop_toTopOf="@id/playerTwoName"
             tools:text="(2)" />
-
-        <Button
-            android:id="@+id/changePlayerNamesButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/change_names"
-            app:layout_constraintTop_toTopOf="@id/playerOneName"
-            app:layout_constraintStart_toStartOf="@id/scoreTicker"
-            app:layout_constraintEnd_toEndOf="@id/scoreTicker" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
