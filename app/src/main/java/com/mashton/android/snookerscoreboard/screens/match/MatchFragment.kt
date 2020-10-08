@@ -21,52 +21,55 @@ class MatchFragment : Fragment() {
     private val viewModel: MatchViewModel
             by viewModels {
                 MatchViewModelFactory(
-                    MatchFragmentArgs.fromBundle(requireArguments()).playerOneName,
-                    MatchFragmentArgs.fromBundle(requireArguments()).playerTwoName,
-                    MatchFragmentArgs.fromBundle(requireArguments()).numberOfFrames)
+                    bundleArguments.playerOneName,
+                    bundleArguments.playerTwoName,
+                    bundleArguments.numberOfFrames)
             }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                                            savedInstanceState: Bundle?): View? {
         super.onCreate(savedInstanceState)
+
         binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.match_fragment,
-            container,
-            false
-        )
+            inflater, R.layout.match_fragment,
+            container,false)
 
-        EventBus.getDefault().register(this)
-
-        binding.playerOneName.text = viewModel.match.playerOne.name
-        binding.playerTwoName.text = viewModel.match.playerTwo.name
-        binding.numberOfFrames.text = viewModel.match.numberOfFrames.formattedAsFrameScore()
-
-        viewModel.apply {
-            shotTicker.onChangeDo {newTicker -> binding.scoreTicker.text = newTicker }
-            playerOneScore.onChangeDo {newScore -> binding.playerOneScore.text = newScore.toString() }
-            playerTwoScore.onChangeDo {newScore -> binding.playerTwoScore.text = newScore.toString() }
-            playerOneScoreColour.onChangeDo {colour :Int -> binding.playerOneScore.setTextColor(colour) }
-            playerTwoScoreColour.onChangeDo {colour :Int -> binding.playerTwoScore.setTextColor(colour) }
-            playerOneFrameScore.onChangeDo { newScore -> binding.playerOneFrameScore.text = newScore.formattedAsFrameScore() }
-            playerTwoFrameScore.onChangeDo { newScore -> binding.playerTwoFrameScore.text = newScore.formattedAsFrameScore() }
-        }
-
+        registerAsEventBusSubscriber()
+        setStaticUiItems()
+        bindLiveDataUiItems()
         return binding.root
     }
 
-    private fun Int.formattedAsFrameScore() =
-        String.format(getString(R.string.frameScoreTemplate), this)
+    private fun registerAsEventBusSubscriber() = EventBus.getDefault().register(this)
 
-    private fun <T> LiveData<T>.onChangeDo (action: Observer<T>)
-    {
-        this.observe(viewLifecycleOwner, action)
+    private fun bindLiveDataUiItems() {
+        viewModel.run {
+            shotTicker.onChangeDo { binding.scoreTicker.text = it }
+            playerOneScore.onChangeDo { binding.playerOneScore.text = it.toString() }
+            playerTwoScore.onChangeDo { binding.playerTwoScore.text = it.toString() }
+            playerOneScoreColour.onChangeDo { binding.playerOneScore.setTextColor(it) }
+            playerTwoScoreColour.onChangeDo { binding.playerTwoScore.setTextColor(it) }
+            playerOneFrameScore.onChangeDo { binding.playerOneFrameScore.text = it.formattedAsFrameScore() }
+            playerTwoFrameScore.onChangeDo { binding.playerTwoFrameScore.text = it.formattedAsFrameScore() }
+        }
     }
+
+    private fun setStaticUiItems() {
+        binding.playerOneName.text = viewModel.match.playerOne.name
+        binding.playerTwoName.text = viewModel.match.playerTwo.name
+        binding.numberOfFrames.text = viewModel.match.numberOfFrames.formattedAsFrameScore()
+    }
+
+    private val bundleArguments
+        get() = MatchFragmentArgs.fromBundle(requireArguments())
+
+    private fun Int.formattedAsFrameScore() = String.format(getString(R.string.frameScoreTemplate), this)
+
+    private fun <T> LiveData<T>.onChangeDo (action: Observer<T>) =
+        this.observe(viewLifecycleOwner, action)
 
     @Subscribe
-    fun onKeyEvent(event : Event) {
-        viewModel.processKeyPress(event.keyCode)
-    }
+    fun onKeyEvent(event : Event) = viewModel.processKeyPress(event.keyCode)
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -22,10 +22,11 @@ class NamesFragment : Fragment() {
             inflater, R.layout.names_fragment, container, false)
 
         binding.startMatchButton.setOnClickListener {
-            val action = NamesFragmentDirections.actionNamesToMatch()
-            action.playerOneName = binding.playerOneNameEditText.text.toString()
-            action.playerTwoName = binding.playerTwoNameEditText.text.toString()
-            action.numberOfFrames = binding.numberOfFrames.text.toString().toInt()
+            val action = NamesFragmentDirections.actionNamesToMatch().apply {
+                playerOneName = binding.playerOneNameEditText.text.toString()
+                playerTwoName = binding.playerTwoNameEditText.text.toString()
+                numberOfFrames = binding.numberOfFrames.text.toString().toInt()
+            }
             NavHostFragment.findNavController(this).navigate(action)
         }
         return binding.root

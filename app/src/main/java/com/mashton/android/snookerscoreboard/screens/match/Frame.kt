@@ -45,23 +45,37 @@ class Frame(val playerOne: Player, val playerTwo: Player) {
             when {
                 lastShotWasAFoul.or(lastShotWasAPenalty)  -> {
                     removeCurrentBreakAndPrecedingShot()
-                    return
-                }
+                    return }
 
                 lastShotWasLegal -> currentBreak.removeLastShot ()
             }
         }
     }
 
+    private val scoresAreEqual get() = (scoreFor(playerOne) == scoreFor(playerTwo))
+
+    private val Player.score get() = breaks.filter {it.player == this} .sumBy {it.score}
+
+    private val previousBreak get() = breaks.getOrNull(breaks.lastIndex - 1)
+
+    private val currentBreak get() = breaks.last()
+
     private val lastShotWasLegal get() = currentBreak.numberOfShots != 0
 
     private val lastShotWasAPenalty get() = currentBreak.numberOfShots == 0
 
     private val lastShotWasAFoul get() =
-        currentBreak.numberOfShots == 1 && currentBreak.lastShot is PenaltyShot && previousBreak?.lastShot is FoulShot
+        currentBreak.numberOfShots == 1 &&
+                currentBreak.lastShot is PenaltyShot &&
+                previousBreak?.lastShot is FoulShot
 
-    val scoresAreEqual: Boolean
-        get() = scoreFor(playerOne) == scoreFor(playerTwo)
+    val started get() = !(breaks.size == 1 && breaks.first().numberOfShots == 0 )
+
+    val shotTicker: String get() = breaks.joinToString(separator="")
+
+    fun scoreFor(player : Player) = player.score
+
+    fun reSpotBlack() = breaks.add(Break(currentPlayer))
 
     private fun removeCurrentBreakAndPrecedingShot() {
        breaks.removeLast()
@@ -80,34 +94,12 @@ class Frame(val playerOne: Player, val playerTwo: Player) {
         else -> null
     }
 
-    private val Player.score get() = breaks.filter {it.player == this} .sumBy {it.score}
-
-    fun scoreFor(player : Player): Int {
-        return player.score
-    }
-
-    private val currentBreak: Break
-        get() = breaks.last()
-
-    private val previousBreak: Break?
-        get() = breaks.getOrNull(breaks.lastIndex - 1)
-
-    val started
-        get() = !(breaks.size == 1 && breaks.first().numberOfShots == 0 )
-
-    val shotTicker: String
-        get() = breaks.joinToString(separator="")
-
-    fun finishFrame() {
+    private fun finishFrame() {
         when {
             playerOne.score > playerTwo.score -> winner = playerOne
             playerTwo.score > playerOne.score -> winner = playerTwo
         }
 
         this.isFinished = true
-    }
-
-    fun reSpotBlack() {
-        breaks.add(Break(currentPlayer))
     }
 }

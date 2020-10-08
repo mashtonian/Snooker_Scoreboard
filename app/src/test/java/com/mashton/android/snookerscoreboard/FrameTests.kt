@@ -111,6 +111,32 @@ class FrameTests {
         testFrame.playShot(LegalShot.DOT)
         assertEquals(true, testFrame.started)
     }
+    @Test fun frameFinishedIsTrueAfterEofPlayedAndScoresAreNotEqual() {
+        val testFrame = startAFrame()
+        testFrame.playShots(
+            arrayOf(
+                LegalShot.RED,
+                LegalShot.BLACK,
+                LegalShot.DOT,
+                LegalShot.RED,
+                ControlShot.END_OF_FRAME
+            ))
+        assertEquals(true, testFrame.isFinished)
+        assertEquals(testFrame.playerOne, testFrame.winner)
+    }
+    @Test fun frameFinishedIsFalseAfterEofPlayedAndScoresAreEqual() {
+        val testFrame = startAFrame()
+        testFrame.playShots(
+            arrayOf(
+                LegalShot.RED,
+                LegalShot.BLACK,
+                LegalShot.DOT,
+                LegalShot.RED,
+                LegalShot.BLACK,
+                ControlShot.END_OF_FRAME
+            ))
+        assertEquals(false, testFrame.isFinished)
+    }
     @Test fun removeAShotDoesNothingWhenNoShotsHaveBeenPlayed() {
         val testFrame = startAFrame()
         testFrame.playShot(ControlShot.REMOVE_LAST_SHOT)
