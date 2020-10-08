@@ -96,5 +96,15 @@
             app:layout_constraintEnd_toStartOf="@id/playerTwoName"
             app:layout_constraintTop_toTopOf="@id/playerTwoName"
             tools:text="(2)" />
+
+        <TextView
+            android:id="@+id/numberOfFrames"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/playerOneName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="(17)" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

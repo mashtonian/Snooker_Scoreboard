@@ -22,7 +22,8 @@ class MatchFragment : Fragment() {
             by viewModels {
                 MatchViewModelFactory(
                     MatchFragmentArgs.fromBundle(requireArguments()).playerOneName,
-                    MatchFragmentArgs.fromBundle(requireArguments()).playerTwoName)
+                    MatchFragmentArgs.fromBundle(requireArguments()).playerTwoName,
+                    MatchFragmentArgs.fromBundle(requireArguments()).numberOfFrames)
             }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +40,7 @@ class MatchFragment : Fragment() {
 
         binding.playerOneName.text = viewModel.match.playerOne.name
         binding.playerTwoName.text = viewModel.match.playerTwo.name
+        binding.numberOfFrames.text = viewModel.match.numberOfFrames.formattedAsFrameScore()
 
         viewModel.apply {
             shotTicker.onChangeDo {newTicker -> binding.scoreTicker.text = newTicker }

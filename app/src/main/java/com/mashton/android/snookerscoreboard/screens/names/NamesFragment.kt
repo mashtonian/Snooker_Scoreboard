@@ -25,6 +25,7 @@ class NamesFragment : Fragment() {
             val action = NamesFragmentDirections.actionNamesToMatch()
             action.playerOneName = binding.playerOneNameEditText.text.toString()
             action.playerTwoName = binding.playerTwoNameEditText.text.toString()
+            action.numberOfFrames = binding.numberOfFrames.text.toString().toInt()
             NavHostFragment.findNavController(this).navigate(action)
         }
         return binding.root

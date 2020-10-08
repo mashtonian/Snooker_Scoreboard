@@ -1,9 +1,10 @@
 package com.mashton.android.snookerscoreboard.screens.match
 
-class Match(playerOneName :String, playerTwoName :String){
+class Match(playerOneName :String, playerTwoName :String, numberOfFrames :Int){
 
     val playerOne = Player(playerOneName)
     val playerTwo = Player(playerTwoName)
+    val numberOfFrames = numberOfFrames
     val players = listOf(playerOne, playerTwo)
     private val frames: MutableList<Frame> = mutableListOf(Frame(playerOne, playerTwo))
     val currentFrame: Frame

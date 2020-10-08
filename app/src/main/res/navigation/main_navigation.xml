@@ -32,6 +32,10 @@
             android:name="playerTwoName"
             android:defaultValue="Player Two"
             app:argType="string" />
+        <argument
+            android:name="numberOfFrames"
+            android:defaultValue="1"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/names_destination"

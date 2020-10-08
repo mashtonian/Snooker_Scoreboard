@@ -8,9 +8,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 
-class MatchViewModel(playerOneName :String, playerTwoName :String) : ViewModel() {
+class MatchViewModel(playerOneName :String, playerTwoName :String, numberOfFrames :Int) : ViewModel() {
 
-    val match = Match(playerOneName, playerTwoName)
+    val match = Match(playerOneName, playerTwoName, numberOfFrames)
 
     private val _shotTicker = MutableLiveData<String>()
     val shotTicker: LiveData<String>
