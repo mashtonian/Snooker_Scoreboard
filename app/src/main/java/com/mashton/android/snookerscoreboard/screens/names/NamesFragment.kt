@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.mashton.android.snookerscoreboard.R
 import com.mashton.android.snookerscoreboard.databinding.NamesFragmentBinding
 
@@ -22,7 +22,10 @@ class NamesFragment : Fragment() {
             inflater, R.layout.names_fragment, container, false)
 
         binding.startMatchButton.setOnClickListener {
-            findNavController().navigate(NamesFragmentDirections.actionNamesToMatch())
+            val action = NamesFragmentDirections.actionNamesToMatch()
+            action.playerOneName = binding.playerOneNameEditText.text.toString()
+            action.playerTwoName = binding.playerTwoNameEditText.text.toString()
+            NavHostFragment.findNavController(this).navigate(action)
         }
         return binding.root
     }

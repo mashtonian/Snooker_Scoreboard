@@ -3,7 +3,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -18,15 +17,12 @@ import org.greenrobot.eventbus.Subscribe
 
 class MatchFragment : Fragment() {
 
-    private lateinit var playerOneNameEditText: EditText
-    private lateinit var playerTwoNameEditText: EditText
-
     private lateinit var binding :MatchFragmentBinding
     private val viewModel: MatchViewModel
             by viewModels {
                 MatchViewModelFactory(
-                    getString(R.string.PlayerOneName),
-                    getString(R.string.PlayerTwoName))
+                    MatchFragmentArgs.fromBundle(requireArguments()).playerOneName,
+                    MatchFragmentArgs.fromBundle(requireArguments()).playerTwoName)
             }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +36,9 @@ class MatchFragment : Fragment() {
         )
 
         EventBus.getDefault().register(this)
+
+        binding.playerOneName.text = viewModel.match.playerOne.name
+        binding.playerTwoName.text = viewModel.match.playerTwo.name
 
         viewModel.apply {
             shotTicker.onChangeDo {newTicker -> binding.scoreTicker.text = newTicker }

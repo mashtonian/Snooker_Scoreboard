@@ -22,8 +22,16 @@
     <fragment
         android:id="@+id/match_destination"
         android:name="com.mashton.android.snookerscoreboard.screens.match.MatchFragment"
-        android:label="game_fragment"
+        android:label="match_fragment"
         tools:layout="@layout/match_fragment">
+        <argument
+            android:name="playerOneName"
+            android:defaultValue="Player One"
+            app:argType="string" />
+        <argument
+            android:name="playerTwoName"
+            android:defaultValue="Player Two"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/names_destination"

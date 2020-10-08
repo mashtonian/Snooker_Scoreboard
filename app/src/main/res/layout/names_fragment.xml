@@ -14,66 +14,69 @@
             android:id="@+id/PlayerOneNameLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="59dp"
             android:text="Player One's Name:"
             android:textAlignment="center"
             android:textColor="#F44336"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/playerOneNameEditText"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBaseline_toBaselineOf="@+id/playerOneNameEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.2"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
             android:id="@+id/playerOneNameEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="252dp"
+            android:layout_marginStart="8dp"
             android:hint="Enter the name here"
             android:inputType="text"
             android:selectAllOnFocus="true"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/PlayerOneNameLabel"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:layout_constraintVertical_bias="0.100000024" />
 
         <TextView
             android:id="@+id/PlayerTwoNameLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="59dp"
             android:text="Player Two's Name:"
             android:textAlignment="center"
             android:textColor="#F44336"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/playerOneNameEditText"
-            app:layout_constraintTop_toBottomOf="@+id/PlayerOneNameLabel" />
+            app:layout_constraintBaseline_toBaselineOf="@+id/playerTwoNameEditText"
+            app:layout_constraintStart_toStartOf="@+id/PlayerOneNameLabel" />
 
         <EditText
             android:id="@+id/playerTwoNameEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="252dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
             android:hint="Enter the name here"
             android:inputType="text"
             android:selectAllOnFocus="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/PlayerOneNameLabel" />
+            app:layout_constraintStart_toEndOf="@+id/PlayerTwoNameLabel"
+            app:layout_constraintTop_toBottomOf="@+id/playerOneNameEditText" />
 
         <Button
             android:id="@+id/start_match_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="62dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
             android:text="@string/start_match"
             android:theme="@style/GoButton"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/PlayerOneNameLabel"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/snooker_table" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
