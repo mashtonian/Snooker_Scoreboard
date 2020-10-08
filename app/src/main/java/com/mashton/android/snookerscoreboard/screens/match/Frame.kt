@@ -75,8 +75,6 @@ class Frame(val playerOne: Player, val playerTwo: Player) {
 
     fun scoreFor(player : Player) = player.score
 
-    fun reSpotBlack() = breaks.add(Break(currentPlayer))
-
     private fun removeCurrentBreakAndPrecedingShot() {
        breaks.removeLast()
         currentPlayer = currentPlayer.opponent()!!

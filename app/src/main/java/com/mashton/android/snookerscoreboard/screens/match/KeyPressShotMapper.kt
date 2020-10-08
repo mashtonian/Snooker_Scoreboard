@@ -11,7 +11,7 @@ object KeyPressShotMapper {
 
     fun map (keyCode: Int): KeyMapperResult {
 
-        //ignore spurious NumLock keypresses for my shonky BlueTooth numpad
+        //ignore spurious NumLock key presses for my rubbish BlueTooth Number Pad
         if (keyCode==KeyEvent.KEYCODE_NUM_LOCK) return KeyMapperResult(null, false)
 
         val foul = fPressedForFoul
