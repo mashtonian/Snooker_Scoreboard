@@ -64,7 +64,7 @@ class MatchFragment : Fragment() {
     }
 
     @Subscribe
-    public fun onKeyEvent(event : Event) {
+    fun onKeyEvent(event : Event) {
         viewModel.processKeyPress(event.keyCode)
     }
 

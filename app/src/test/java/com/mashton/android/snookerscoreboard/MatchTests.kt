@@ -17,6 +17,6 @@ class MatchTests {
     }
 
     private fun startAMatch(): Match {
-        return Match("foo", "bar")
+        return Match("foo", "bar", 1)
     }
 }

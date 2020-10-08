@@ -1,3 +1,3 @@
 package com.mashton.android.snookerscoreboard.screens.match
 
-class  Player(var name :String) {}
+class  Player(var name :String)

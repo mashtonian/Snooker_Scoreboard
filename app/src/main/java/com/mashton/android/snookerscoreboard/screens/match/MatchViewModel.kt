@@ -1,8 +1,6 @@
 package com.mashton.android.snookerscoreboard.screens.match
 
 import android.graphics.Color
-import android.view.View.INVISIBLE
-import android.view.View.VISIBLE
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -35,9 +33,6 @@ class MatchViewModel(playerOneName :String, playerTwoName :String, numberOfFrame
     private val _matchStarted = MutableLiveData<Boolean>()
 
     private val _currentPlayer = MutableLiveData<Player>()
-
-    val matchStartedVisibility: LiveData<Int> = Transformations.map(_matchStarted) { started ->
-        if (started) INVISIBLE else VISIBLE }
 
     val playerOneScoreColour = colourFor(match.playerOne)
     val playerTwoScoreColour = colourFor(match.playerTwo)

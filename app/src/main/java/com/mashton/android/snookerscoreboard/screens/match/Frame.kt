@@ -2,10 +2,10 @@ package com.mashton.android.snookerscoreboard.screens.match
 
 class Frame(val playerOne: Player, val playerTwo: Player) {
 
-    val players = listOf(playerOne, playerTwo)
     var winner : Player? = null
     var currentPlayer = playerOne
     private val breaks: MutableList<Break> = mutableListOf(Break(currentPlayer))
+    var isFinished :Boolean = false
 
     fun playShot(shot: Shot) {
         when (shot ) {
@@ -32,6 +32,8 @@ class Frame(val playerOne: Player, val playerTwo: Player) {
 
             ControlShot.END_OF_FRAME -> {
                 currentBreak.add(shot)
+                if (scoresAreEqual) breaks.add(Break(currentPlayer))
+                else finishFrame()
             }
 
             ControlShot.REMOVE_LAST_SHOT -> removeLastShot()
@@ -58,6 +60,9 @@ class Frame(val playerOne: Player, val playerTwo: Player) {
     private val lastShotWasAFoul get() =
         currentBreak.numberOfShots == 1 && currentBreak.lastShot is PenaltyShot && previousBreak?.lastShot is FoulShot
 
+    val scoresAreEqual: Boolean
+        get() = scoreFor(playerOne) == scoreFor(playerTwo)
+
     private fun removeCurrentBreakAndPrecedingShot() {
        breaks.removeLast()
         currentPlayer = currentPlayer.opponent()!!
@@ -76,9 +81,6 @@ class Frame(val playerOne: Player, val playerTwo: Player) {
     }
 
     private val Player.score get() = breaks.filter {it.player == this} .sumBy {it.score}
-
-    val nonCurrentPlayer
-        get() = currentPlayer.opponent()
 
     fun scoreFor(player : Player): Int {
         return player.score
@@ -100,8 +102,12 @@ class Frame(val playerOne: Player, val playerTwo: Player) {
         when {
             playerOne.score > playerTwo.score -> winner = playerOne
             playerTwo.score > playerOne.score -> winner = playerTwo
-
-            //TODO: Implement re-spotted black end to frame, when scores are tied
         }
+
+        this.isFinished = true
+    }
+
+    fun reSpotBlack() {
+        breaks.add(Break(currentPlayer))
     }
 }
