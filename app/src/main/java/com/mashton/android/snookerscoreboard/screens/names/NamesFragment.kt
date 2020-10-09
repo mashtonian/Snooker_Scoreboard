@@ -23,6 +23,8 @@ class NamesFragment : Fragment() {
         val binding: NamesFragmentBinding = DataBindingUtil.inflate(
             inflater, R.layout.names_fragment, container, false)
 
+        binding.playerOneNameEditText.requestFocus()
+
         binding.startMatchButton.setOnClickListener {
             val action = NamesFragmentDirections.actionNamesToMatch().apply {
                 playerOneName = playerOneNameEditText.textOrDefault(R.string.PlayerOneName)

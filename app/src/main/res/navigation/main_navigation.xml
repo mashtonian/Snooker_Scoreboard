@@ -48,6 +48,9 @@
         <action
             android:id="@+id/action_match_to_finished"
             app:destination="@id/finished_destination" />
+        <action
+            android:id="@+id/action_match_to_names"
+            app:destination="@id/names_destination" />
     </fragment>
     <fragment
         android:id="@+id/finished_destination"
