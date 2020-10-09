@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.NavHostFragment
 import com.mashton.android.snookerscoreboard.MatchViewModel
 import com.mashton.android.snookerscoreboard.R
 import com.mashton.android.snookerscoreboard.databinding.FinishedFragmentBinding
@@ -25,6 +26,12 @@ class FinishedFragment : Fragment() {
             container,false)
 
         binding.textView.text = viewModel.match.winner?.name
+
+        binding.startNewMatchButton.setOnClickListener {
+            activity?.viewModelStore?.clear()
+            val action = FinishedFragmentDirections.actionFinishedToNames()
+            NavHostFragment.findNavController(this).navigate(action)
+        }
 
         return binding.root
     }

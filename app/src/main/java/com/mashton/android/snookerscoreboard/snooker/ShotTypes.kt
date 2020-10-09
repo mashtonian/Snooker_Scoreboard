@@ -1,4 +1,4 @@
-package com.mashton.android.snookerscoreboard
+package com.mashton.android.snookerscoreboard.snooker
 
 interface Shot{
     val value: Int

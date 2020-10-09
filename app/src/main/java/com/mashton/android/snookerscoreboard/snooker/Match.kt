@@ -1,4 +1,4 @@
-package com.mashton.android.snookerscoreboard
+package com.mashton.android.snookerscoreboard.snooker
 
 class Match(playerOneName: String, playerTwoName: String, val numberOfFrames: Int) {
 

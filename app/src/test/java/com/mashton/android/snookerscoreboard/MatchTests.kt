@@ -1,4 +1,6 @@
 package com.mashton.android.snookerscoreboard
+import com.mashton.android.snookerscoreboard.snooker.LegalShot
+import com.mashton.android.snookerscoreboard.snooker.Match
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

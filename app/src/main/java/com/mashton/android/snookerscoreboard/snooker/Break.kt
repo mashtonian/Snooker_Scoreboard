@@ -1,4 +1,4 @@
-package com.mashton.android.snookerscoreboard
+package com.mashton.android.snookerscoreboard.snooker
 
 class Break(val player : Player) {
     private val shots: MutableList<Shot> = mutableListOf()

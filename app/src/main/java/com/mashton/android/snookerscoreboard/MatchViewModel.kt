@@ -6,6 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.mashton.android.snookerscoreboard.screens.match.KeyPressShotMapper
+import com.mashton.android.snookerscoreboard.snooker.Match
+import com.mashton.android.snookerscoreboard.snooker.Player
+import com.mashton.android.snookerscoreboard.snooker.Shot
 
 class MatchViewModel(playerOneName :String, playerTwoName :String, numberOfFrames :Int) : ViewModel() {
 

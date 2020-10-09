@@ -54,6 +54,9 @@
         android:name="com.mashton.android.snookerscoreboard.screens.finished.FinishedFragment"
         android:label="FinishedFragment"
         tools:layout="@layout/finished_fragment">
+        <action
+            android:id="@+id/action_finished_to_names"
+            app:destination="@id/names_destination" />
     </fragment>
 
 </navigation>
