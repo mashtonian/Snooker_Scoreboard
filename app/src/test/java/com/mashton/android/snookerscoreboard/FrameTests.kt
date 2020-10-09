@@ -1,5 +1,4 @@
 package com.mashton.android.snookerscoreboard
-import com.mashton.android.snookerscoreboard.screens.match.*
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

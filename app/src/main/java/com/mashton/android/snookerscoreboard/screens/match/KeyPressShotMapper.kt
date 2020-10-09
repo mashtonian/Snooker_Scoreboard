@@ -1,6 +1,7 @@
 package com.mashton.android.snookerscoreboard.screens.match
 
 import android.view.KeyEvent
+import com.mashton.android.snookerscoreboard.*
 
 data class KeyMapperResult(var shot : Shot?, var handled :Boolean)
 

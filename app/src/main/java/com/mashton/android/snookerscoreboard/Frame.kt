@@ -1,4 +1,4 @@
-package com.mashton.android.snookerscoreboard.screens.match
+package com.mashton.android.snookerscoreboard
 
 class Frame(val playerOne: Player, val playerTwo: Player) {
 

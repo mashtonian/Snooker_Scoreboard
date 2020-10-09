@@ -1,4 +1,4 @@
-package com.mashton.android.snookerscoreboard.screens.match
+package com.mashton.android.snookerscoreboard
 
 class Break(val player : Player) {
     private val shots: MutableList<Shot> = mutableListOf()

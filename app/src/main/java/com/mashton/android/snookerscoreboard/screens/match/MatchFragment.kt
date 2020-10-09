@@ -5,21 +5,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.NavHostFragment
 import com.mashton.android.snookerscoreboard.Event
+import com.mashton.android.snookerscoreboard.MatchViewModel
+import com.mashton.android.snookerscoreboard.MatchViewModelFactory
 import com.mashton.android.snookerscoreboard.R
 import com.mashton.android.snookerscoreboard.databinding.MatchFragmentBinding
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
-
 class MatchFragment : Fragment() {
 
     private lateinit var binding :MatchFragmentBinding
     private val viewModel: MatchViewModel
-            by viewModels {
+            by activityViewModels {
                 MatchViewModelFactory(
                     bundleArguments.playerOneName,
                     bundleArguments.playerTwoName,
@@ -51,7 +53,13 @@ class MatchFragment : Fragment() {
             playerTwoScoreColour.onChangeDo { binding.playerTwoScore.setTextColor(it) }
             playerOneFrameScore.onChangeDo { binding.playerOneFrameScore.text = it.formattedAsFrameScore() }
             playerTwoFrameScore.onChangeDo { binding.playerTwoFrameScore.text = it.formattedAsFrameScore() }
+            finished.onChangeDo {if (it == true) navigateToFinishedFragment()}
         }
+    }
+
+    private fun navigateToFinishedFragment() {
+        val action = MatchFragmentDirections.actionMatchToFinished()
+        NavHostFragment.findNavController(this).navigate(action)
     }
 
     private fun setStaticUiItems() {
