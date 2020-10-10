@@ -4,34 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         tools:context=".screens.match.MatchFragment">
 
         <TextView
             android:id="@+id/playerOneScore"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:textAlignment="center"
             android:textColor="#F44336"
-            android:textSize="120sp"
-            app:layout_constraintEnd_toStartOf="@+id/playerTwoScore"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:autoSizeMaxTextSize="300sp"
+            app:autoSizeMinTextSize="70sp"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintEnd_toEndOf="@+id/playerOneName"
+            app:layout_constraintStart_toStartOf="@+id/playerOneName"
+            app:layout_constraintTop_toTopOf="@+id/playerTwoScore"
             tools:text="0" />
+
 
         <TextView
             android:id="@+id/playerTwoScore"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:textAlignment="center"
-            android:textSize="120sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/playerOneScore"
+            app:autoSizeMaxTextSize="300sp"
+            app:autoSizeMinTextSize="70sp"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/playerTwoName"
+            app:layout_constraintStart_toStartOf="@+id/playerTwoName"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.25"
             tools:text="0" />
 
 
@@ -39,62 +44,72 @@
             android:id="@+id/scoreTicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
             android:textAlignment="center"
-            android:layout_marginTop="16dp"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="@+id/playerOneScore"
-            app:layout_constraintStart_toEndOf="@+id/playerOneScore"
-            app:layout_constraintTop_toBottomOf="@+id/playerOneName"
+            android:textSize="30sp"
+            app:autoSizeMaxTextSize="60sp"
+            app:autoSizeMinTextSize="20sp"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             tools:text="Shot Ticker" />
 
         <TextView
             android:id="@+id/playerOneName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginTop="32dp"
+            android:maxLines="2"
+            android:minLines="1"
+            android:text="@string/PlayerOneName"
             android:textSize="30sp"
-            android:text = "@string/PlayerOneName"
-            app:layout_constraintTop_toBottomOf="@+id/playerOneScore"
-            app:layout_constraintEnd_toEndOf="@+id/playerOneScore"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/playerOneScore" />
+            app:autoSizeMaxTextSize="75sp"
+            app:autoSizeMinTextSize="30sp"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintEnd_toStartOf="@+id/numberOfFrames"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/playerOneScore" />
 
         <TextView
             android:id="@+id/playerOneFrameScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:gravity="center_vertical"
             android:textSize="30sp"
-            app:layout_constraintBottom_toBottomOf="@id/playerOneName"
-            app:layout_constraintStart_toEndOf="@id/playerOneName"
-            app:layout_constraintTop_toTopOf="@id/playerOneName"
+            app:autoSizeMaxTextSize="75sp"
+            app:autoSizeMinTextSize="30sp"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintEnd_toEndOf="@+id/playerOneName"
+            app:layout_constraintStart_toStartOf="@+id/playerOneName"
+            app:layout_constraintTop_toBottomOf="@+id/playerOneName"
             tools:text="(1)" />
 
         <TextView
             android:id="@+id/playerTwoName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="5dp"
+            android:text="@string/PlayerTwoName"
             android:textSize="30sp"
-            android:text = "@string/PlayerTwoName"
-            app:layout_constraintTop_toBottomOf="@+id/playerTwoScore"
-            app:layout_constraintEnd_toEndOf="@+id/playerTwoScore"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/playerOneScore" />
+            app:autoSizeMaxTextSize="75sp"
+            app:autoSizeMinTextSize="30sp"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintBaseline_toBaselineOf="@+id/numberOfFrames"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/numberOfFrames" />
 
         <TextView
             android:id="@+id/playerTwoFrameScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:gravity="center_vertical"
             android:textSize="30sp"
-            app:layout_constraintBottom_toBottomOf="@id/playerTwoName"
-            app:layout_constraintEnd_toStartOf="@id/playerTwoName"
-            app:layout_constraintTop_toTopOf="@id/playerTwoName"
+            app:autoSizeMaxTextSize="75sp"
+            app:autoSizeMinTextSize="30sp"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintEnd_toEndOf="@+id/playerTwoName"
+            app:layout_constraintStart_toStartOf="@+id/playerTwoName"
+            app:layout_constraintTop_toBottomOf="@+id/playerTwoName"
             tools:text="(2)" />
 
         <TextView
@@ -102,9 +117,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="30sp"
+            app:autoSizeMaxTextSize="75sp"
+            app:autoSizeMinTextSize="30sp"
+            app:autoSizeTextType="uniform"
             app:layout_constraintBaseline_toBaselineOf="@+id/playerOneName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="(17)" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
